@@ -250,7 +250,7 @@ Updates your current local working directory. `git pull` is a combination of `gi
 
 ```console
 $ git pull origin <branch>
-$ git pull origin main
+$ git pull origin master
 ```
 
 Push.
@@ -258,7 +258,7 @@ Push.
 ```console
 $ git add .
 $ git commit -m "message"
-$ git push origin main
+$ git push origin master
 ```
 
 
