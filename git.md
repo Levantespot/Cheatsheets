@@ -1,0 +1,183 @@
+# Git & GitHub Tutorial
+
+## Getting Started
+
+Once you have Git on your system, you’ll want to customize your Git environment. You should have to do these things only once on any given computer; they’ll stick around between upgrades. You can also change them at any time by **re-running** through the commands.
+
+Git comes with a tool called `git config` that lets you get and set configuration variables that control all aspects of how Git looks and operates. These variables can be stored in three different places:
+
+1. `[path]/etc/gitconfig` file: Contains values applied to every user on the system and all their repositories. If you pass the option `--system` to `git config`, it reads and writes from this file specifically. Because this is a system configuration file, you would need administrative or superuser privilege to make changes to it.
+2. `~/.gitconfig` or `~/.config/git/config` file: Values specific personally to you, the user. You can make Git read and write to this file specifically by passing the `--global` option, and this affects *all* of the repositories you work with on your system.
+3. `config` file in the Git directory (that is, `.git/config`) of whatever repository you’re currently using: Specific to that single repository. You can force Git to read from and write to this file with the `--local` option, but that is in fact the default. Unsurprisingly, you need to be located somewhere in a Git repository for this option to work properly.
+
+### Your Identity
+
+The first thing you should do when you install Git is to set your user name and email address. This is important because every Git commit uses this information, and it’s immutably baked into the commits you start creating:
+
+```console
+$ git config --global user.name "John Doe"
+$ git config --global user.email johndoe@example.com
+```
+
+### Your Editor
+
+Now that your identity is set up, you can configure the default text editor that will be used when Git needs you to type in a message. If not configured, Git uses your system’s default editor.
+
+If you want to use a different text editor, such as Emacs, you can do the following:
+
+```console
+$ git config --global core.editor emacs
+```
+
+On a Windows system, if you want to use a different text editor, you must specify the full path to its executable file. This can be different depending on how your editor is packaged.
+
+```console
+$ git config --global core.editor "'C:/Program Files/Notepad++/notepad++.exe' -multiInst -notabbar -nosession -noPlugin"
+```
+
+### Your default branch name
+
+By default Git will create a branch called *master* when you create a new repository with `git init`. From Git version 2.28 onwards, you can set a different name for the initial branch.
+
+To set *main* as the default branch name do:
+
+```console
+$ git config --global init.defaultBranch main
+```
+
+### Checking Your Settings
+
+If you want to check your configuration settings, you can use the `git config --list` command to list all the settings.
+
+You may see keys more than once, because Git reads the same key from different files (`[path]/etc/gitconfig` and `~/.gitconfig`, for example). In this case, Git uses the last value for each unique key it sees.
+
+You can also check what Git thinks a specific key’s value is by typing `git config <key>`:
+
+```console
+$ git config user.name
+John Doe
+```
+
+### Getting Help
+
+If you ever need help while using Git, there are three equivalent ways to get the comprehensive manual page (manpage) help for any of the Git commands:
+
+```console
+$ git help <verb>
+$ git <verb> --help
+$ man git-<verb>
+```
+
+For example, you can get the manpage help for the `git config` command by running this:
+
+```console
+$ git help config
+```
+
+In addition, if you don’t need the full-blown manpage help, but just need a quick refresher on the available options for a Git command, you can ask for the more concise “help” output with the `-h` option.
+
+## Git Basics
+
+### Create a local git repository 
+
+```console
+$ cd <somewhere>
+$ git init
+```
+
+This creates a new subdirectory named `.git` that contains all of your necessary repository files — a Git repository skeleton. At this point, nothing in your project is tracked yet. 
+
+If you want to start version-controlling existing files (as opposed to an empty directory), you should probably begin tracking those files and do an initial commit. You can accomplish that with a few `git add` commands that specify the files you want to track, followed by a `git commit`:
+
+```console
+$ git add *.c
+$ git add LICENSE
+$ git commit -m 'Initial project version'
+```
+
+### Cloning an Existing Repository
+
+You clone a repository with `git clone <url>`. For example, if you want to clone the Git linkable library called `libgit2`, you can do so like this:
+
+```console
+$ git clone https://github.com/libgit2/libgit2
+```
+
+That creates a directory named `libgit2`, initializes a `.git` directory inside it, pulls down all the data for that repository, and checks out a working copy of the latest version. If you go into the new `libgit2` directory that was just created, you’ll see the project files in there, ready to be worked on or used.
+
+If you want to clone the repository into a directory named something other than `libgit2`, you can specify the new directory name as an additional argument:
+
+```console
+$ git clone https://github.com/libgit2/libgit2 mylibgit
+```
+
+Git has a number of different transfer protocols you can use. The previous example uses the `https://` protocol, but you may also see `git://` or `user@server:path/to/repo.git`, which uses the SSH transfer protocol.
+
+### Recording Changes to the Repository
+
+![The lifecycle of the status of your files](git.assets/lifecycle.png)
+
+Figure. The lifecycle of the status of your files
+
+## Git Branching
+
+PASS
+
+## Git on the server
+
+### Generating Your SSH Public Key
+
+First, you should check to make sure you don’t already have a key. By default, a user’s SSH keys are stored in that user’s `~/.ssh` directory.
+
+```console
+$ cd ~/.ssh
+$ ls
+```
+
+You’re looking for a pair of files named something like `id_dsa` or `id_rsa` and a matching file with a `.pub` extension. The `.pub` file is your public key, and the other file is the corresponding private key. If you don’t have these files (or you don’t even have a `.ssh` directory), you can create them by running a program called `ssh-keygen`.
+
+```console
+$ ssh-keygen [-o]
+```
+
+First it confirms where you want to save the key (`.ssh/id_rsa`), and then it asks twice for a passphrase, which you can leave empty if you don’t want to type a password when you use the key. However, if you do use a password, make sure to add the `-o` option; it saves the private key in a format that is more resistant to brute-force password cracking than is the default format. You can also use the `ssh-agent` tool to prevent having to enter the password each time.
+
+## GitHub
+
+### Work for your repository
+
+Generate a SSH key. [Link](#Generating Your SSH Public Key)
+
+```console
+$ cat ~/.ssh/id_rsa.pub
+```
+
+Then paste the contents of your `~/.ssh/id_rsa.pub` public-key file into the "Add an SSH Key" text area, and click “Add key”.
+
+Next, specifies the remote repository for your local repository.
+
+```console
+$ git remote add origin <url>
+$ git remote add origin git@github.com:Levantespot/Cheatsheets.git
+```
+
+Updates your current local working directory. `git pull` is a combination of `git fetch` and `git merge`
+
+```console
+$ git pull origin <branch>
+$ git pull origin master
+```
+
+Push.
+
+```console
+$ git add .
+$ git commit -m "message"
+$ git push origin master
+```
+
+
+
+### Work cooperatively
+
+TODO: Fork & Pull
