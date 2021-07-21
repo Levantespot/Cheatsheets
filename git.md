@@ -206,6 +206,22 @@ $ git mv file_from file_to
 
 ## Git Branching
 
+To create a new branch and switch to it at the same time, you can run the `git checkout` command with the `-b` switch:
+
+```console
+$ git checkout -b iss53
+Switched to a new branch "iss53"
+```
+
+This is shorthand for:
+
+```console
+$ git branch iss53
+$ git checkout iss53
+```
+
+### Branch Management
+
 PASS
 
 ## Git on the server
@@ -250,7 +266,7 @@ Updates your current local working directory. `git pull` is a combination of `gi
 
 ```console
 $ git pull origin <branch>
-$ git pull origin master
+$ git pull origin main
 ```
 
 Push.
@@ -258,7 +274,7 @@ Push.
 ```console
 $ git add .
 $ git commit -m "message"
-$ git push origin master
+$ git push origin main
 ```
 
 
