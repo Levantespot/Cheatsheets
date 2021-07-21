@@ -117,7 +117,92 @@ Git has a number of different transfer protocols you can use. The previous examp
 
 ![The lifecycle of the status of your files](git.assets/lifecycle.png)
 
-Figure. The lifecycle of the status of your files
+**Checking** the Status of Your Files
+
+```console
+$ git status
+$ E:\Study\Cheatsheets> git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   git.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+```
+
+**Tracking** New Files
+
+In order to begin tracking a new file, you use the command `git add`.
+
+```console
+$ git add <file>...
+```
+
+**Staging** Modified Files
+
+To stage it, you run the `git add` command. `git add` is a multipurpose command — you use it to begin tracking new files, to stage files, and to do other things like marking merge-conflicted files as resolved.
+
+| Command                    | New Files | Modified Files | Deleted Files | Description                                                |
+| :------------------------- | :-------- | :------------- | :------------ | :--------------------------------------------------------- |
+| git add -A                 | ✔️         | ✔️              | ✔️             | Stage all (new, modified, deleted) files                   |
+| git add .                  | ✔️         | ✔️              | ✔️             | Stage all (new, modified, deleted) files in current folder |
+| git add --ignore-removal . | ✔️         | ✔️              | ❌             | Stage new and modified files only                          |
+| git add -u                 | ❌         | ✔️              | ✔️             | Stage modified and deleted files only                      |
+
+**Ignoring** Files
+
+Often, you’ll have a class of files that you don’t want Git to automatically add or even show you as being untracked. These are generally automatically generated files such as log files or files produced by your build system. In such cases, you can create a file listing patterns to match them named `.gitignore`. Here is an example `.gitignore` file:
+
+```console
+$ cat .gitignore
+*.[oa]
+*~
+```
+
+The first line tells Git to ignore any files ending in “.o” or “.a” — object and archive files that may be the product of building your code. The second line tells Git to ignore all files whose names end with a tilde (`~`), which is used by many text editors such as Emacs to mark temporary files.
+
+The rules for the patterns you can put in the `.gitignore` file are as follows:
+
+- Blank lines or lines starting with `#` are ignored.
+- Standard glob patterns work, and will be applied recursively throughout the entire working tree.
+- You can start patterns with a forward slash (`/`) to avoid recursivity.
+- You can end patterns with a forward slash (`/`) to specify a directory.
+- You can negate a pattern by starting it with an exclamation point (`!`).
+
+**Committing** Your Changes
+
+Now that your staging area is set up the way you want it, you can commit your changes. Remember that anything that is still unstaged — any files you have created or modified that you haven’t run `git add` on since you edited them — won’t go into this commit. They will stay as modified files on your disk.
+
+```console
+$ git commit -m "Message"
+```
+
+**Skipping** the Staging Area
+
+Adding the `-a` option to the `git commit` command makes Git automatically stage every file that is already tracked before doing the commit, letting you skip the `git add` part:
+
+```console
+$ git commit -a -m 'Message'
+```
+
+**Removing** Files
+
+To remove a file from Git, you have to remove it from your tracked files (more accurately, remove it from your staging area) and then commit. The `git rm` command does that, and also removes the file from your working directory so you don’t see it as an untracked file the next time around.
+
+If you simply remove the file from your working directory, it shows up under the “Changes not staged for commit” (that is, *unstaged*) area of your `git status` output.
+
+Another useful thing you may want to do is to keep the file in your working tree but remove it from your staging area. In other words, you may want to keep the file on your hard drive but not have Git track it anymore. This is particularly useful if you forgot to add something to your `.gitignore` file and accidentally staged it, like a large log file or a bunch of `.a` compiled files. To do this, use the `--cached` option:
+
+```console
+$ git rm --cached README
+```
+
+**Moving** Files
+
+```console
+$ git mv file_from file_to
+```
 
 ## Git Branching
 
@@ -165,7 +250,7 @@ Updates your current local working directory. `git pull` is a combination of `gi
 
 ```console
 $ git pull origin <branch>
-$ git pull origin master
+$ git pull origin main
 ```
 
 Push.
@@ -173,7 +258,7 @@ Push.
 ```console
 $ git add .
 $ git commit -m "message"
-$ git push origin master
+$ git push origin main
 ```
 
 
