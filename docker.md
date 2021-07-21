@@ -30,7 +30,7 @@ Docker 镜像（`Image`）是一个特殊的文件系统，除了提供容器运
 
 仓库名经常以 *两段式路径* 形式出现，比如 `jwilder/nginx-proxy`，前者往往意味着 Docker Registry 多用户环境下的用户名，后者则往往是对应的软件名。但这并非绝对，取决于所使用的具体 Docker Registry 的软件或服务。
 
-## 常用操作
+## 镜像操作
 
 ### 显示 Docker 信息
 
@@ -91,13 +91,15 @@ $ docker run [选项] <image_name> [需要运行的指令]
 e.g.
 
 ```
-$ docker run -it --rm ubuntu:18.04 bash
+$ docker run -it --rm --name L ubuntu:18.04 bash
 ```
 
 - `-it`：这是两个参数，一个是 `-i`：交互式操作，一个是 `-t` 终端。我们这里打算进入 `bash` 执行一些命令并查看返回结果，因此我们需要交互式终端。
 - `--rm`：这个参数是说容器退出后随之将其删除。默认情况下，为了排障需求，退出的容器并不会立即删除，除非手动 `docker rm`。我们这里只是随便执行个命令，看看结果，不需要排障和保留结果，因此使用 `--rm` 可以避免浪费空间。
 - `ubuntu:18.04`：这是指用 `ubuntu:18.04` 镜像为基础来启动容器。
 - `bash`：放在镜像名后的是 **命令**，这里我们希望有个交互式 Shell，因此用的是 `bash`。
+- `--name L`: 为该 container 取名为 L。若使用该参数则系统会自动分配一个随机字符串。
+- `-d`: --detach，后台运行
 
 ### 镜像体积
 
@@ -136,6 +138,90 @@ $ docker rmi <镜像1> [<镜像2> ...]
 ### 定制镜像
 
 以后接触到再看。
+
+## 容器操作
+
+### 显示容器
+
+```bash
+docker container list
+```
+
+or
+
+```bash
+docker ps [-a]
+```
+
+- `-a`: 显示所有的容器，包括已经停止的
+
+### 运行容器
+
+```bash
+docker start <container id>
+```
+
+### 停止容器
+
+```bash
+docker stop <container id>
+```
+
+### 后台运行
+
+进入后台运行中的容器
+
+```bash
+docker exec -it <container id> /bin/bash
+```
+
+使用该命令，退出终端后不会导致容器停止
+
+or
+
+```bash
+docker attach -it <container id> /bin/bash
+```
+
+使用该命令，退出终端后将会导致容器停止
+
+## Volume 操作
+
+### Volume
+
+列出本机所有的 volume:
+
+```bash
+docker volume ls
+```
+
+创建一个volume:
+
+```bash
+docker volume create <volume_name>
+```
+
+删除一个volume:
+
+```bash
+docker volume rm <volume_name>
+```
+
+使用 volume
+
+--mount 版本
+
+```bash
+docker run -it --rm --name test --mount source=<vol-name>,target=/my_data <image-name>
+```
+
+-v 版本
+
+```bash
+docker run -it --name test -v /home/b320a/L:/my-dir -p 6321:8888 --ipc=host nvcr.io/nvidia/pytorch:21.06-py3
+```
+
+
 
 ## Pytorch & Docker
 
