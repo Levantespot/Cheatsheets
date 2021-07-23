@@ -60,7 +60,7 @@ $ docker pull ubuntu:18.04
 列出已经下载好的镜像
 
 ```bash
-$ docker image [ls]
+$ docker image ls
 ```
 
 e.g.
@@ -185,6 +185,12 @@ docker attach -it <container id> /bin/bash
 
 使用该命令，退出终端后将会导致容器停止
 
+### 删除容器
+
+```dockerfile
+docker rm <id>
+```
+
 ## Volume 操作
 
 ### Volume
@@ -218,7 +224,7 @@ docker run -it --rm --name test --mount source=<vol-name>,target=/my_data <image
 -v 版本
 
 ```bash
-docker run -it --name test -v /home/b320a/L:/my-dir -p 6321:8888 --ipc=host nvcr.io/nvidia/pytorch:21.06-py3
+docker run -it -v /home/b320a/L:/my-dir -p 6321:8888 --gpus all --ipc=host nvcr.io/nvidia/pytorch:21.06-py3
 ```
 
 
@@ -250,13 +256,33 @@ docker run -it --name test -v /home/b320a/L:/my-dir -p 6321:8888 --ipc=host nvcr
      $ docker run --gpus "device=UUID-ABCDEF,1" ...
      ```
 
-   - 我最近使用的例子
+   - 我自己使用的例子
 
      ```bash
      $ docker run -it --rm --gpus 1 --ipc=host nvcr.io/nvidia/pytorch:21.06-py3 
      ```
 
-     
 
-   
+## 生命周期 Lifecycle
 
+![Docker lifecycle](https://miro.medium.com/max/2258/1*vca4e-SjpzSL5H401p4LCg.png)
+
+彩色圆形 代表容器的五种状态：
+
+- created: 初建状态
+- running: 运行状态
+- stopped: 停止状态
+- paused: 暂停状态
+- deleted: 删除状态
+
+长方形 代表容器在执行某种命令后进入的状态：
+
+- docker create: 创建容器后，不立即启动运行，容器进入初建状态；
+- docker run: 创建容器，并立即启动运行，进入运行状态；
+- docker start: 容器转为运行状态；
+- docker stop: 容器将转入停止状态；
+- docker kill: 容器在故障（死机）时，执行kill（断电），容器转入停止状态，这种操作容易丢失数据，除非必要，否则不建议使用；
+- docker restart: 重启容器，容器转入运行状态；
+- docker pause: 容器进入暂停状态；
+- docker unpause: 取消暂停状态，容器进入运行状态；
+- docker rm: 删除容器，容器转入删除状态（如果没有保存相应的数据库，则状态不可见）。

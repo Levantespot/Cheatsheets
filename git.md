@@ -269,7 +269,15 @@ $ git pull origin <branch>
 $ git pull origin main
 ```
 
-Push.
+Create a `main` branch
+
+```console
+$ git checkout -b main
+```
+
+This is because GitHub rename the master to main
+
+Push
 
 ```console
 $ git add .
