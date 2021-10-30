@@ -157,17 +157,21 @@ docker ps [-a]
 
 ### 运行容器
 
+Exited -> Up
+
 ```bash
 docker start <container id>
 ```
 
 ### 停止容器
 
+Up -> Exited
+
 ```bash
 docker stop <container id>
 ```
 
-### 后台运行
+### 进入容器
 
 进入后台运行中的容器
 
@@ -175,7 +179,7 @@ docker stop <container id>
 docker exec -it <container id> /bin/bash
 ```
 
-使用该命令，退出终端后不会导致容器停止
+使用 `exec` 命令，退出终端后不会导致容器停止
 
 or
 
@@ -183,7 +187,7 @@ or
 docker attach -it <container id> /bin/bash
 ```
 
-使用该命令，退出终端后将会导致容器停止
+使用 `attach` 命令，退出终端后将会导致容器停止
 
 ### 删除容器
 
@@ -224,7 +228,7 @@ docker run -it --rm --name test --mount source=<vol-name>,target=/my_data <image
 -v 版本
 
 ```bash
-docker run -it -v /home/b320a/L:/my-dir -p 6321:8888 --gpus all --ipc=host nvcr.io/nvidia/pytorch:21.06-py3
+docker run -it -v /home/b320a/L:/my-dir -p 6321:8888 --gpus all --ipc=host nvcr.io/nvidia/pytorch:21.08-py3
 ```
 
 
@@ -259,7 +263,7 @@ docker run -it -v /home/b320a/L:/my-dir -p 6321:8888 --gpus all --ipc=host nvcr.
    - 我自己使用的例子
 
      ```bash
-     $ docker run -it --rm --gpus 1 --ipc=host nvcr.io/nvidia/pytorch:21.06-py3 
+     $ docker run -it -p 6321:8080 --gpus all --name liweitao-pytorch -v /home/b320a/liweitao/pytorch:/my-dir --ipc=host liweitao-pytorch
      ```
 
 
