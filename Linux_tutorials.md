@@ -11,7 +11,8 @@ sudo passwd # set password of root account
 
 ping www.baidu.com -c 4 # to see if you're connnected to the Internet
 
-su - OR su root # switch to the root account
+su - # switch to the root account
+su root # switch to the root account
 
 adduser 'username' sudo # add your account to the sudo group
 
@@ -777,43 +778,39 @@ The regular expression describes the matching pattern and is made up of text cha
 
 A **metacharacter** is just a character with a special meaning. There are 2 major styles, **BRE** and **ERE**, depending on the text tools as described above.
 
-Metacharacters for BRE and ERE
+Ref: [1](https://learnbyexample.github.io/learn_gnused/breere-regular-expressions.html), 
 
-| BRE                        | ERE             | description of the regular expression                        |
-| -------------------------- | --------------- | ------------------------------------------------------------ |
-| \ . [ ] ^ $ *              | \  . [ ] ^ $ *  | common metacharacters                                        |
-| \\+ \? \\( \\) \\{ \\} \\| |                 |
-|                            | +  ? ( ) { } \| | ERE only non-"\\" escaped metacharacters                     |
-| c                          | c               | match non-metacharacter "c"                                  |
-| \c                         | \c              | match a literal character "c" even if "c"  is metacharacter by itself |
-| \d                         | \d              | match single digit from 0 to 9, equivalent to [0-9],        |
-| \D                         | \D              | match any non-digit character                                |
-| \b                         | \b              | match the boundary between a word and a non-word character   |
-| \w                         | \w              | match a character, equivalent to [A-Za-z0-9_]                |
-| \W                         | \W              | match any non-alphanumeric character, e.g. punctuation.      |
-| \s                         | not sure        | match a space, including \\n,\\t,\\r                         |
-| \S                         | \S              | match any non-whitespace character                           |
-| .                          | .               | match single character including newline                     |
-| ^r                         | ^r              | position at the beginning of a string                        |
-| r$                         | r$              | position at the end of a string                              |
-| (r)                        | not sure        | capture groups of characters for further processing, e.g. (IMG\d+).pdf |
-| (?:r)                      | not sure        | just make groups, without capture, thus can not be referred  |
-| (r1(r2))                   | not sure        | capture nested groups by nested parenthesis, e.g. (IMG(\d+))\.png |
-| \\<                        | \\<             | position at the beginning of a word                          |
-| \\>                        | \\>             | position at the end of a word                                |
-| [abc…]                     | [abc…]          | match single characters in "abc…"                            |
-| [^abc…]                    | [^abc…]         | match single characters except in "abc…"                     |
-| r*                         | r*              | match zero or more regular expressions identified by "r"     |
-| r\\+                       | r+              | match one or more regular expressions identified by "r"      |
-| r\\?                       | r?              | match zero or one regular expressions identified by "r"      |
-| w{3}                       | not sure        | match a character 'w' 3 times. 'w' can also be like [a-zA-Z] |
-| w{1,3}                     | not sure        | match a character 'w' no more than 3 times, but no less than once |
-| r1\\|r2                    | r1\|r2          |
-| \\(r1\\|r2\\)              | (r1\|r2)        |
-| a(?=b)                     | N               | positive lookahead 先行断言，a 只有在 b 前面才匹配           |
-| a(?!b)                     | N               | negative lookahead 先行否定断言，a 只有不在 b 前面才匹配     |
-| (?<=b)a                    | N               | positive lookbehind 后行断言，a 只有在 b 后面才匹配          |
-| (?<!b)a                    | N               | negative lookbehind 后行否定断言，a 只有不在 b 后面才匹配    |
+| BRE                        | description of the regular expression                        |
+| -------------------------- | ------------------------------------------------------------ |
+| BRE |Basic Regular Expression, enabled by default|
+| ERE | Extended Regular Expression, enabled using `-E` option |
+|  | **note**: only ERE syntax is covered below |
+| metacharacters | characters with special meaning in REGEXP |
+| `c`                        | match non-metacharacter `c`                               |
+| `\c`                       | match a literal character `c` even if `c` is metacharacter by itself |
+| \d                         | match single digit from 0 to 9, equivalent to [0-9],        |
+| \D                         | match any non-digit character                                |
+| \b                         | match the boundary between a word and a non-word character   |
+| \w                         | match a character, equivalent to [A-Za-z0-9_]                |
+| \W                         | match any non-alphanumeric character, e.g. punctuation.      |
+| \s                         | match a space, including \\n,\\t,\\r                         |
+| \S                         | match any non-whitespace character                           |
+| .                          | match single character including newline                     |
+| ^r                         | position at the beginning of a string                        |
+| (r)                        | capture groups of characters for further processing, e.g. (IMG\d+).pdf |
+| (?:r)                      | just make groups, without capture, thus can not be referred  |
+| (r1(r2))                   | capture nested groups by nested parenthesis, e.g. (IMG(\d+))\.png |
+| [abc…]                     | match single characters in "abc…"                            |
+| [^abc…]                    | match single characters except in "abc…"                     |
+| r*                         | match zero or more regular expressions identified by "r"     |
+| r\\+                       | match one or more regular expressions identified by "r"      |
+| r\\?                       | match zero or one regular expressions identified by "r"      |
+| w{3}                       | match a character 'w' 3 times. 'w' can also be like [a-zA-Z] |
+| w{1,3}                     | match a character 'w' no more than 3 times, but no less than once |
+| a(?=b)                     | positive lookahead 先行断言，a 只有在 b 前面才匹配           |
+| a(?!b)                     | negative lookahead 先行否定断言，a 只有不在 b 前面才匹配     |
+| (?<=b)a                    | positive lookbehind 后行断言，a 只有在 b 后面才匹配          |
+| (?<!b)a                    | negative lookbehind 后行否定断言，a 只有不在 b 后面才匹配    |
 
 Regular expression cheat sheet
 
