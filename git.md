@@ -14,7 +14,7 @@ Git comes with a tool called `git config` that lets you get and set configuratio
 
 The first thing you should do when you install Git is to set your user name and email address. This is important because every Git commit uses this information, and it’s immutably baked into the commits you start creating:
 
-```console
+```shell
 $ git config --global user.name "John Doe"
 $ git config --global user.email johndoe@example.com
 ```
@@ -23,15 +23,15 @@ $ git config --global user.email johndoe@example.com
 
 Now that your identity is set up, you can configure the default text editor that will be used when Git needs you to type in a message. If not configured, Git uses your system’s default editor.
 
-If you want to use a different text editor, such as Emacs, you can do the following:
+If you want to use a different text editor, such as Vim, you can do the following:
 
-```console
-$ git config --global core.editor emacs
+```shell
+$ git config --global core.editor vim
 ```
 
 On a Windows system, if you want to use a different text editor, you must specify the full path to its executable file. This can be different depending on how your editor is packaged.
 
-```console
+```shell
 $ git config --global core.editor "'C:/Program Files/Notepad++/notepad++.exe' -multiInst -notabbar -nosession -noPlugin"
 ```
 
@@ -41,7 +41,7 @@ By default Git will create a branch called *master* when you create a new reposi
 
 To set *main* as the default branch name do:
 
-```console
+```shell
 $ git config --global init.defaultBranch main
 ```
 
@@ -53,7 +53,7 @@ You may see keys more than once, because Git reads the same key from different f
 
 You can also check what Git thinks a specific key’s value is by typing `git config <key>`:
 
-```console
+```shell
 $ git config user.name
 John Doe
 ```
@@ -62,7 +62,7 @@ John Doe
 
 If you ever need help while using Git, there are three equivalent ways to get the comprehensive manual page (manpage) help for any of the Git commands:
 
-```console
+```shell
 $ git help <verb>
 $ git <verb> --help
 $ man git-<verb>
@@ -70,7 +70,7 @@ $ man git-<verb>
 
 For example, you can get the manpage help for the `git config` command by running this:
 
-```console
+```shell
 $ git help config
 ```
 
@@ -80,7 +80,7 @@ In addition, if you don’t need the full-blown manpage help, but just need a qu
 
 ### Create a local git repository 
 
-```console
+```shell
 $ cd <somewhere>
 $ git init
 ```
@@ -89,7 +89,7 @@ This creates a new subdirectory named `.git` that contains all of your necessary
 
 If you want to start version-controlling existing files (as opposed to an empty directory), you should probably begin tracking those files and do an initial commit. You can accomplish that with a few `git add` commands that specify the files you want to track, followed by a `git commit`:
 
-```console
+```shell
 $ git add *.c
 $ git add LICENSE
 $ git commit -m 'Initial project version'
@@ -99,7 +99,7 @@ $ git commit -m 'Initial project version'
 
 You clone a repository with `git clone <url>`. For example, if you want to clone the Git linkable library called `libgit2`, you can do so like this:
 
-```console
+```shell
 $ git clone https://github.com/libgit2/libgit2
 ```
 
@@ -107,7 +107,7 @@ That creates a directory named `libgit2`, initializes a `.git` directory inside 
 
 If you want to clone the repository into a directory named something other than `libgit2`, you can specify the new directory name as an additional argument:
 
-```console
+```shell
 $ git clone https://github.com/libgit2/libgit2 mylibgit
 ```
 
@@ -119,7 +119,7 @@ Git has a number of different transfer protocols you can use. The previous examp
 
 **Checking** the Status of Your Files
 
-```console
+```shell
 $ git status
 $ E:\Study\Cheatsheets> git status
 On branch master
@@ -135,7 +135,7 @@ no changes added to commit (use "git add" and/or "git commit -a")
 
 In order to begin tracking a new file, you use the command `git add`.
 
-```console
+```shell
 $ git add <file>...
 ```
 
@@ -154,7 +154,7 @@ To stage it, you run the `git add` command. `git add` is a multipurpose command�
 
 Often, you’ll have a class of files that you don’t want Git to automatically add or even show you as being untracked. These are generally automatically generated files such as log files or files produced by your build system. In such cases, you can create a file listing patterns to match them named `.gitignore`. Here is an example `.gitignore` file:
 
-```console
+```shell
 $ cat .gitignore
 *.[oa]
 *~
@@ -174,7 +174,7 @@ The rules for the patterns you can put in the `.gitignore` file are as follows:
 
 Now that your staging area is set up the way you want it, you can commit your changes. Remember that anything that is still unstaged — any files you have created or modified that you haven’t run `git add` on since you edited them — won’t go into this commit. They will stay as modified files on your disk.
 
-```console
+```shell
 $ git commit -m "Message"
 ```
 
@@ -182,7 +182,7 @@ $ git commit -m "Message"
 
 Adding the `-a` option to the `git commit` command makes Git automatically stage every file that is already tracked before doing the commit, letting you skip the `git add` part:
 
-```console
+```shell
 $ git commit -a -m 'Message'
 ```
 
@@ -194,35 +194,85 @@ If you simply remove the file from your working directory, it shows up under the
 
 Another useful thing you may want to do is to keep the file in your working tree but remove it from your staging area. In other words, you may want to keep the file on your hard drive but not have Git track it anymore. This is particularly useful if you forgot to add something to your `.gitignore` file and accidentally staged it, like a large log file or a bunch of `.a` compiled files. To do this, use the `--cached` option:
 
-```console
+```shell
 $ git rm --cached README
 ```
 
 **Moving** Files
 
-```console
+```shell
 $ git mv file_from file_to
 ```
 
 ## Git Branching
 
-To create a new branch and switch to it at the same time, you can run the `git checkout` command with the `-b` switch:
+### Local branches
 
-```console
-$ git checkout -b iss53
-Switched to a new branch "iss53"
+**List** all of the branches in your repository:
+
+```shell
+$ git branch
 ```
 
-This is shorthand for:
+**Create** a new branch called `＜branch＞`: This does *not* check out the new branch.
 
-```console
-$ git branch iss53
-$ git checkout iss53
+```shell
+$ git branch <branch>
 ```
 
-### Branch Management
+**Switch** to or check out the new branch
 
-PASS
+```shell
+$ git checkout <branch>
+
+$ git checkout -b iss53 # Switched to a new branch "iss53"
+# This is shorthand for: "git branch iss53" and "git checkout iss53"
+```
+
+**Delete** the specified branch:
+
+```shell
+$ git branch -d <branch> # This is a “safe” operation in that Git prevents you from deleting the branch if it has unmerged changes:
+$ git branch -D <branch> # Force delete the specified branch, even if it has unmerged changes.
+```
+
+**Rename** the current branch to `＜branch＞`:
+
+```shell
+$ git branch -m <branch>
+```
+
+**Merge** a branch to current branch:
+
+```shell
+$ git merge <branch>
+```
+
+### Remote branches
+
+In order to operate on remote branches, a remote repo must first be configured and added to the local repo config. 
+
+**Adding** a remote repository:
+
+```shell
+$ git remote add <remote_name> <remote_url>
+```
+
+**List** all remote branches:
+
+```shell
+$ git branch -a
+```
+
+**Delete** a remote branch:
+
+```shell
+$ git push <remote_name> --delete <branch_name> # this will not delete local branch
+
+# or delete local branch first then push to remote repository
+$ git branch -D <branch_name>
+$ git push <remote_name> <branch_name>
+```
 
 ## Git on the server
 
@@ -230,14 +280,14 @@ PASS
 
 First, you should check to make sure you don’t already have a key. By default, a user’s SSH keys are stored in that user’s `~/.ssh` directory.
 
-```console
+```shell
 $ cd ~/.ssh
 $ ls
 ```
 
 You’re looking for a pair of files named something like `id_dsa` or `id_rsa` and a matching file with a `.pub` extension. The `.pub` file is your public key, and the other file is the corresponding private key. If you don’t have these files (or you don’t even have a `.ssh` directory), you can create them by running a program called `ssh-keygen`.
 
-```console
+```shell
 $ ssh-keygen [-o]
 ```
 
@@ -249,7 +299,7 @@ First it confirms where you want to save the key (`.ssh/id_rsa`), and then it as
 
 Generate a SSH key. [Link](#Generating Your SSH Public Key)
 
-```console
+```shell
 $ cat ~/.ssh/id_rsa.pub
 ```
 
@@ -257,21 +307,21 @@ Then paste the contents of your `~/.ssh/id_rsa.pub` public-key file into the "Ad
 
 Next, specifies the remote repository for your local repository.
 
-```console
-$ git remote add origin <url>
+```shell
+$ git remote add <remote_name> <remote_url>
 $ git remote add origin git@github.com:Levantespot/Cheatsheets.git
 ```
 
 Updates your current local working directory. `git pull` is a combination of `git fetch` and `git merge`
 
-```console
-$ git pull origin <branch>
+```shell
+$ git pull <remote_name> <branch>
 $ git pull origin main
 ```
 
 Create a `main` branch
 
-```console
+```shell
 $ git checkout -b main
 ```
 
@@ -279,7 +329,7 @@ This is because GitHub rename the master to main
 
 Push
 
-```console
+```shell
 $ git add .
 $ git commit -m "message"
 $ git push origin main

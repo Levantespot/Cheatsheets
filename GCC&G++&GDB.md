@@ -40,6 +40,7 @@ Ref:
 | `$ gdb <program> [core dump]`         | Start GDB (with optional core dump).                         |
 | `$ gdb --pid <pid>`                   | Start GDB and attach to process.                             |
 | `set args <args...>`                  | Set arguments to pass to program to be debugged.             |
+| `start`                               | Run the program and break before main function               |
 | `run`                                 | Run the program to be debugged.                              |
 | `kill`                                | Kill the running program.                                    |
 | **Breakpoints**                       |                                                              |

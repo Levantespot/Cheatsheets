@@ -82,5 +82,6 @@ z			# Toggle pane zoom
 x			# Close current pane
 !           # Convert pane into a window
 Ctrl+↑/↓/←/→	# Resize current pane
+[			# enter scroll mode (Use PageUp & PageDown, enter `q` to quit scroll mode)
 ```
 
