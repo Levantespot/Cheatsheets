@@ -15,7 +15,7 @@ proxy
 
 ### vimrc
 
-```
+```shell
 set background=dark
 filetype plugin indent on
 set showmatch " Show matching brackets.
@@ -58,15 +58,36 @@ nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR> " 用空格�
 
 ### tmux.conf
 
-```
+First clone `tpm`:  `$ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm`
+
+```shell
 bind-key c new-window -c "#{pane_current_path}"
 bind-key % split-window -h -c "#{pane_current_path}"
 bind-key '"' split-window -c "#{pane_current_path}"
 set -g default-terminal 'screen-256color'
 set -g history-limit 10000
+
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-sensible'
+
 set -g @plugin 'tmux-plugins/tmux-resurrect'
 set -g @plugin 'tmux-plugins/tmux-continuum'
+set -g @continuum-restore 'on'tmux
 
-set -g @continuum-restore 'on'
+run '~/.tmux/plugins/tpm/tpm'
 ```
 
+Installing plugins
+
+1. Add new plugin to `~/.tmux.conf` with `set -g @plugin '...'`
+2. `$ tmux source ~/.tmux.conf`
+3. Press `prefix` + I (capital i, as in **I**nstall) to fetch the plugin.
+
+You're good to go! The plugin was cloned to `~/.tmux/plugins/` dir and sourced.
+
+Uninstalling plugins
+
+1. Remove (or comment out) plugin from the list.
+2. Press `prefix` + alt + u (lowercase u as in **u**ninstall) to remove the plugin.
+
+All the plugins are installed to `~/.tmux/plugins/` so alternatively you can find plugin directory there and remove it.

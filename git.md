@@ -288,7 +288,7 @@ $ ls
 You’re looking for a pair of files named something like `id_dsa` or `id_rsa` and a matching file with a `.pub` extension. The `.pub` file is your public key, and the other file is the corresponding private key. If you don’t have these files (or you don’t even have a `.ssh` directory), you can create them by running a program called `ssh-keygen`.
 
 ```shell
-$ ssh-keygen [-o]
+$ ssh-keygen -o
 ```
 
 First it confirms where you want to save the key (`.ssh/id_rsa`), and then it asks twice for a passphrase, which you can leave empty if you don’t want to type a password when you use the key. However, if you do use a password, make sure to add the `-o` option; it saves the private key in a format that is more resistant to brute-force password cracking than is the default format. You can also use the `ssh-agent` tool to prevent having to enter the password each time.
@@ -308,6 +308,8 @@ Then paste the contents of your `~/.ssh/id_rsa.pub` public-key file into the "Ad
 Next, specifies the remote repository for your local repository.
 
 ```shell
+$ cd workdir
+$ git init # use for the first time
 $ git remote add <remote_name> <remote_url>
 $ git remote add origin git@github.com:Levantespot/Cheatsheets.git
 ```
@@ -316,7 +318,7 @@ Updates your current local working directory. `git pull` is a combination of `gi
 
 ```shell
 $ git pull <remote_name> <branch>
-$ git pull origin main
+$ git pull origin main # Or `$ git pull origin main:main` which will create a `main` branch or merge remote rep with your `main` branch
 ```
 
 Create a `main` branch
