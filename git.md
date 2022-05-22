@@ -317,8 +317,13 @@ $ git remote add origin git@github.com:Levantespot/Cheatsheets.git
 Updates your current local working directory. `git pull` is a combination of `git fetch` and `git merge`
 
 ```shell
+$ git checkout -b <branch>
 $ git pull <remote_name> <branch>
-$ git pull origin main # Or `$ git pull origin main:main` which will create a `main` branch or merge remote rep with your `main` branch
+$ git pull origin main
+
+# Or
+$ git pull origin main:main
+# will create a `main` branch or merge remote rep with your `main` branch
 ```
 
 Create a `main` branch

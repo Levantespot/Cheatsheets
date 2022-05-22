@@ -33,32 +33,99 @@ Ref:
 
 - [GDB Cheat Sheet.pdf](https://darkdust.net/files/GDB Cheat Sheet.pdf)
 - [A GDB Tutorial with Examples](http://www.cprogramming.com/gdb.html)
+- [Beej's Quick Guide to GDB](https://beej.us/guide/bggdb/)
+- [GDB常用调试命令,layout很有用](https://blog.csdn.net/u010697897/article/details/51612503)
 
-| Command                               | Description                                                  |
-| ------------------------------------- | ------------------------------------------------------------ |
-| **Running**                           |                                                              |
-| `$ gdb <program> [core dump]`         | Start GDB (with optional core dump).                         |
-| `$ gdb --pid <pid>`                   | Start GDB and attach to process.                             |
-| `set args <args...>`                  | Set arguments to pass to program to be debugged.             |
-| `start`                               | Run the program and break before main function               |
-| `run`                                 | Run the program to be debugged.                              |
-| `kill`                                | Kill the running program.                                    |
-| **Breakpoints**                       |                                                              |
-| `break <where>`                       | Set a new breakpoint.                                        |
-| `delete <breakpoint#>`                | Remove a breakpoint.                                         |
-| `clear`                               | Delete all breakpoints.                                      |
-| `disable <breakpoint#>`               | Disable a breakpoint.                                        |
-| `enable <breakpoint#>`                | Enable a disabled breakpoint.                                |
-| **Watchpoints**                       |                                                              |
-| `watch <where>`                       | Set a new watchpoint.                                        |
-| `delete/enable/disable <watchpoint#>` | Like breakpoints.                                            |
-| **Stepping**                          |                                                              |
-| `step`                                | Go to next instruction (source line), di-<br/>ving into function. |
-| `next`                                | Go to next instruction (source line) but <br/>donʻt dive into functions. |
-| `finish`                              | Continue until the current function re-<br/>turns.           |
-| `continue`                            | Continue normal execution.                                   |
-| **Variables and memory**              |                                                              |
-| `print/format <what>`                 | Print content of variable/memory locati-<br/>on/register.    |
-| `display/format <what>`               | Like "print", but print the information <br/>after each stepping instruction. |
-| `undisplay <display#>`                | Remove the "display" with the given <br/>number.             |
+Notes:
 
+- gdb 会自动载入重新编译的程序。因此 debug 的流程可以是：窗口 A，修改、编译程序；窗口 B(gdb) `kill`&`run`。
+- 不输入命令，直接回车，结果为重复上一次的命令。
+
+### 运行
+
+| Command      | Abbreviation | Meaning                                                      |
+| ------------ | ------------ | ------------------------------------------------------------ |
+| `start`      |              | 自动在 main 处设置一个临时断点，运行程序                     |
+| `run`        | `r`          | 运行程序，当遇到断点后，程序会在断点处停止运行，等待用户输入下一步的命令 |
+| `next`       | `n`          | 单步调试，不会进入函数内部；`n 4` 表示执行 4 条命令，下同    |
+| `step`       | `s`          | 单步调试，会进入函数内部                                     |
+| `nexti`      | `ni`         | 针对汇编指令，类似于 `n`，单步调试，不会进入函数内部         |
+| `stepi`      | `si`         | 针对汇编指令，类似于 `s`，单步调试，会进入函数内部           |
+| `continue`   | `c`          | 继续执行被调试程序，直至下一个断点或程序结束                 |
+| `jump <loc>` |              | Just like `continue`, except jump to a particular location first. |
+| `until`      |              | 运行程序直到退出循环体；`until+行号`： 运行至某行            |
+| `finish`     |              | 运行程序，直到当前函数完成返回，并打印函数返回时的堆栈地址和返回值及参数值等信息。 |
+| `kill`       |              | 杀死当前程序（不退出 gdb）                                   |
+| `quit`       | `q`          | 退出 gdb                                                     |
+
+### 断点
+
+| Command        | Abbreviation | Meaning                                                     |
+| -------------- | ------------ | ----------------------------------------------------------- |
+| `break <n>`    | `b <n>`      | 在第 n 行处设置断点；<br />可以带上代码路径：`b main.cpp:8` |
+| `break <func>` | `b <func>`   | 在函数 func() 的入口处设置断点，如 `b main`                 |
+| `disable <n>`  |              | 暂停第 n 个断点                                             |
+| `enable <n>`   |              | 开启第 n 个断点                                             |
+| `clear <n>`    |              | 清除第 n 行的断点，不带参数会清楚当前行所有断点             |
+| `info break`   | `info b`     | 显示当前程序的断点、display、watch 设置情况                 |
+| `delete <n>`   |              | 删除对应的断点、display、watch 等等                         |
+
+### 检查代码
+
+| Command        | Abbreviation | Meaning                                  |
+| -------------- | ------------ | ---------------------------------------- |
+| `list`         | `l`          | 列出程序的源代码，默认每次显示10行       |
+| `list <line#>` |              | 将显示当前文件以行号为中心的前后10行代码 |
+| `list <func>`  |              | 显示函数的源代码                         |
+| `disas`        |              |                                          |
+| `disas <func>` |              |                                          |
+
+### 打印
+
+| Command            | Abbreviation | Meaning                                                      |
+| ------------------ | ------------ | ------------------------------------------------------------ |
+| `print <exp>`      | `p`          | 打印表达式，可以是任何有效的表达式<br />`print ++a`：将把 `a` 中的值加 1，并打印<br />`print fact(5)`：打印 `fact(5)` 的值<br />`print /d a`：以十进制打印 a<br />`print /t $rip`：以二进制打印 PC 寄存器<br />`print /x $rax`：以十六进制打印返回值（寄存器） |
+| `display <exp>`    | `disp`       | 每单步调试一次，就会输出表达式                               |
+| `undisplay <#>`    | `undisp`     |                                                              |
+| `info display`     |              | 显示 display 使用情况                                        |
+| `watch <exp>`      |              | 只在表达式改变时，暂停程序，输出表达式的新、旧值             |
+| `printf "%d\n", x` |              | 类似于 C 语言函数，格式化输出                                |
+
+### 修改、定义、调用
+
+| Command               | Abbreviation   | Meaning                            |
+| --------------------- | -------------- | ---------------------------------- |
+| `set variable v = 12` | `set (v = 12)` | 修改变量 `v` 的值为 12             |
+| `call <func(args..)>` |                | 调用函数，并传参（可选）           |
+| `define <name>`       |                | 定义一个新的命令，通常用来简化操作 |
+
+### 分割窗口
+
+| Command           | Abbreviation | Meaning                                                      |
+| ----------------- | ------------ | ------------------------------------------------------------ |
+| `layout src`      |              | 显示源代码窗口                                               |
+| `layout asm`      |              | 显示反汇编窗口                                               |
+| `layout regs`     |              | 显示源代码/反汇编和CPU寄存器窗口                             |
+| `layout split`    |              | 显示源代码和反汇编窗口                                       |
+| `focus <winname>` | `fs`         | Set focus to a particular window by name ("SRC", "CMD", "ASM", or "REG") |
+| `Ctrl`+`x` `a`    |              | 关闭窗口                                                     |
+| `Ctrl`+`L`        |              | 刷新窗口                                                     |
+
+### 运行信息
+
+| Command             | Abbreviation | Meaning                                         |
+| ------------------- | ------------ | ----------------------------------------------- |
+| `where`/`backtrace` | `where`/`bt` | 当前运行的堆栈列表                              |
+| `set <args..>`      |              | 设置需要传入的参数                              |
+| `show <args>`       |              | 查看设置好的参数                                |
+| `info program`      |              | Print current status of the program             |
+| `info functions`    |              | Print functions in program                      |
+| `info stack`        |              | Print backtrace of the stack                    |
+| `info frame`        |              | Print information about the current stack frame |
+| `info registers`    |              | Print registers and their contents              |
+
+### 其他
+
+| Command          | Abbreviation | Meaning            |
+| ---------------- | ------------ | ------------------ |
+| `help <command>` |              | 查看命令的帮助文件 |
