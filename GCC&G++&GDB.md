@@ -38,7 +38,28 @@ Ref:
 
 Notes:
 
+- 输入参数的几种方法：
+
+  1. `$ gdb --args executablename arg1 arg2 arg3`
+
+  2. create a file with context:
+
+     ```
+     run arg1 arg2 arg3
+     
+     program input
+     ```
+
+     And call gdb like:
+
+     ```
+     $ gdb prog < file
+     ```
+
+  3. Enter `(gdb) run/start arg1 arg2 arg3` after running gdb
+
 - gdb 会自动载入重新编译的程序。因此 debug 的流程可以是：窗口 A，修改、编译程序；窗口 B(gdb) `kill`&`run`。
+
 - 不输入命令，直接回车，结果为重复上一次的命令。
 
 ### 运行
@@ -84,7 +105,8 @@ Notes:
 
 | Command            | Abbreviation | Meaning                                                      |
 | ------------------ | ------------ | ------------------------------------------------------------ |
-| `print <exp>`      | `p`          | 打印表达式，可以是任何有效的表达式<br />`print ++a`：将把 `a` 中的值加 1，并打印<br />`print fact(5)`：打印 `fact(5)` 的值<br />`print /d a`：以十进制打印 a<br />`print /t $rip`：以二进制打印 PC 寄存器<br />`print /x $rax`：以十六进制打印返回值（寄存器） |
+| `print <exp>`      | `p`          | 打印表达式，可以是任何有效的表达式<br />`print ++a`：将把 `a` 中的值加 1，并打印<br />`print fact(5)`：打印 `fact(5)` 的值<br />`print /d a`：以十进制打印 a（默认）<br />`print /t $rip`：以二进制打印 PC 寄存器<br />`print /x $rax`：以十六进制打印返回值（寄存器） |
+| `x/nfu <addr>`     |              | 检查内存 ，`n` 为数量，`f` 为格式，`u` 为大小<br />不指定格式，要么按默认格式（以十进制打印 1 个四字节长度），要么按上一次的 `x` 或 `p` 的格式输出<br />`x/4tb $rsp`：以二进制打印 `$rsp` 地址开始的四个字节<br />`x/s $rdi`：打印 `$rdi` 指向的字符串 |
 | `display <exp>`    | `disp`       | 每单步调试一次，就会输出表达式                               |
 | `undisplay <#>`    | `undisp`     |                                                              |
 | `info display`     |              | 显示 display 使用情况                                        |
@@ -93,11 +115,12 @@ Notes:
 
 ### 修改、定义、调用
 
-| Command               | Abbreviation   | Meaning                            |
-| --------------------- | -------------- | ---------------------------------- |
-| `set variable v = 12` | `set (v = 12)` | 修改变量 `v` 的值为 12             |
-| `call <func(args..)>` |                | 调用函数，并传参（可选）           |
-| `define <name>`       |                | 定义一个新的命令，通常用来简化操作 |
+| Command                | Abbreviation   | Meaning                                              |
+| ---------------------- | -------------- | ---------------------------------------------------- |
+| `set variable v = 12`  | `set (v = 12)` | 修改变量 `v` 的值为 12                               |
+| `set {type}addr = val` |                | 给一个内存地址赋值<br />如：`set {int}0x7ffde40 = 4` |
+| `call <func(args..)>`  |                | 调用函数，并传参（可选）                             |
+| `define <name>`        |                | 定义一个新的命令，通常用来简化操作                   |
 
 ### 分割窗口
 
@@ -122,7 +145,7 @@ Notes:
 | `info functions`    |              | Print functions in program                      |
 | `info stack`        |              | Print backtrace of the stack                    |
 | `info frame`        |              | Print information about the current stack frame |
-| `info registers`    |              | Print registers and their contents              |
+| `info registers`    | `info reg`   | Print registers and their contents              |
 
 ### 其他
 
