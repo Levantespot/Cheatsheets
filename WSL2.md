@@ -1,3 +1,17 @@
+### Proxy
+
+```bash
+$ export HTTP_PROXY=username:password@proxy-server-ip:port
+$ export HTTPS_PROXY=username:password@proxy-server-ip:port
+# use '$ cat /etc/resolv.conf' to find name server of WLS2
+
+# proxy for APT
+$ sudo vim /etc/apt/apt.conf
+# add the following lines:
+Acquire::http::Proxy "http://username:password@proxy-server-ip:port/";
+Acquire::https::Proxy "http://username:password@proxy-server-ip:port/";
+```
+
 ### bashrc
 
 ```bash
