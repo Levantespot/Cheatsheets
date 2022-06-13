@@ -1,5 +1,9 @@
 # Makefile tutorial
 
+### Ref
+
+- [跟我一起写 Makefile](https://seisman.github.io/how-to-write-makefile/index.html)
+
 ## Quick Start
 
 ### 预处理，编译，汇编，链接
@@ -9,14 +13,14 @@
   - 使用 `gcc` 预处理 `gcc -E -o test.i test.c`
 - 编译 compile：将预处理文件转换为汇编代码 assembly code。
   - 汇编代码依然是文本。
-  - 使用 `gcc` 编译 `gcc -S -o test.s test.i` or `gcc -S -o test.s test.c`
+  - 使用 `gcc` 编译 `gcc -S -o test.s test.i` or `gcc -S -o test.s test.c`
 - 汇编：汇编代码转换成机器码，生成目标文件，即 Object File。
   - 目标文件是二进制格式，无法直接查看。
   - 在 Windows 下也就是 `.obj` 文件，UNIX下是 `.o` 文件。
-  - 使用 `gcc` 汇编：`gcc -c -o test.o test.s ` or `gcc -c-o test.o test.c `
+  - 使用 `gcc` 汇编：`gcc -c -o test.o test.s ` or `gcc -c-o test.o test.c `
 - 链接 link：使用链接器将该目标文件与其他目标文件、库文件、启动文件等链接起来生成可执行文件（如 UNIX 的 `.out`，Windows 的 `.exe`）。
   - 链接器并不管函数所在的源文件，只管函数的 Object File，在大多数时候，由于源文件太多，编译生成的中间目标文件太多，而在链接时需要明显地指出中间目标文件名，这对于编译很不方便。所以，我们要给中间目标文件打个包，在 Windows 下这种包叫「库文件，Library File」，也就是 `.lib` 文件，在 UNIX 下，是 Archive File，也就是 `.a` 文件。
-  - 使用 `gcc` 链接目标文件：`gcc -o test.out test.o ` or `gcc -o test.out test.c`
+  - 使用 `gcc` 链接目标文件：`gcc -o test.out test.o ` or `gcc -o test.out test.c`
 
 ### 基本的语法
 
@@ -71,11 +75,11 @@ clean :
 
 在这个 makefile 中，目标文件（target）包含：执行文件edit和中间目标文件（ `*.o` ），依赖文件（prerequisites）就是冒号后面的那些 `.c` 文件和 `.h` 文件。每一个 `.o` 文件都有一组依赖文件，而这些 `.o` 文件又是执行文件 `edit` 的依赖文件。依赖关系的实质就是说明了目标文件是由哪些文件生成的，换言之，目标文件是哪些文件更新的。
 
-其中需要注意的是， `clean` 不是一个文件，它只不过是一个动作名字 `label`。`make` 就不会自动去找它的依赖性，也就不会自动执行其后所定义的命令。要执行其后的命令，就要在 `make` 命令后明显得指出这个 `label` 的名字。这样的方法非常有用，我们可以在一个 makefile 中定义不用的编译或是和编译无关的命令，比如程序的打包，程序的备份，等等。
+其中需要注意的是， `clean` 不是一个文件，它只不过是一个动作名字 `label`。`make` 就不会自动去找它的依赖性，也就不会自动执行其后所定义的命令。要执行其后的命令，就要在 `make` 命令后明显得指出这个 `label` 的名字。这样的方法非常有用，我们可以在一个 makefile 中定义不用的编译或是和编译无关的命令，比如程序的打包，程序的备份，等等。
 
 ### makefile 中使用变量
 
-使用 `objects = ...` 就可以定义一个叫做 `objects` 的变量，等于 `=` 后面的内容。于是，我们就可以很方便地在 makefile 中以 `$(objects)` 的方式来使用这个变量了：
+使用 `objects = ...` 就可以定义一个叫做 `objects` 的变量，等于 `=` 后面的内容。于是，我们就可以很方便地在 makefile 中以 `$(objects)` 的方式来使用这个变量了：
 
 ```makefile
 objects = main.o kbd.o command.o display.o \
@@ -222,12 +226,60 @@ GNU的 `make` 工作时的执行步骤如下：
 
 ## TODO:使用变量
 
+用 `=` 号给变量赋值，用 `$()` 或 `${}` 取得变量的值：
+
+```makefile
+CFLAGS = -g -O2 -Wall
+LIBS = -pthread
+
+objects = object1.o object2.o
+
+target: $(objects)
+	cc -o target $(objects) $(CFLAGS) $(LIBS)
+```
+
+- `$@` 表示目标文件
+- `$^` 表示所有的依赖文件
+- `$<` 表示第一个依赖文件
+- `$?` 表示比目标还要新的依赖文件列表
+
+```makefile
+foo: foo.c
+    cc -o foo foo.c
+```
+
+ 可以简写为：
+
+```
+foo: foo.c
+	cc -o $@ $^
+```
+
+
+
 ## TODO:使用条件判断
 
 ## TODO:使用函数
 
 ## TODO:隐含规则
 
-### Ref
+最简单的隐含规则：
 
-- [跟我一起写 Makefile](https://seisman.github.io/how-to-write-makefile/index.html)
+```makefile
+foo : foo.o bar.o
+    cc –o foo foo.o bar.o $(CFLAGS) $(LDFLAGS)
+foo.o : foo.c
+    cc –c foo.c $(CFLAGS)
+bar.o : bar.c
+    cc –c bar.c $(CFLAGS)
+```
+
+可以简写为：
+
+```makefile
+foo : foo.o bar.o
+    cc –o ^@ $^ $(CFLAGS) $(LDFLAGS)
+```
+
+
+
