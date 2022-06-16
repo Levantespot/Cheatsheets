@@ -78,7 +78,7 @@ In addition, if you don’t need the full-blown manpage help, but just need a qu
 
 ## Git Basics
 
-### Create a local git repository 
+### Create a local git repository
 
 ```shell
 $ cd <somewhere>
@@ -94,6 +94,18 @@ $ git add *.c
 $ git add LICENSE
 $ git commit -m 'Initial project version'
 ```
+
+- `$ git add [file]`: Add a file to the staging area.
+  
+  - `$ git add -A`: Add all files.
+
+- `$ git diff [file]`: Show changes between working directory and staging area.
+
+- `$ git diff --staged [file]`: Shows any changes between the staging area and the repository.
+
+- `$ git reset [file]`: Revert your repository to a previous known working state.
+  
+  - `$ git reset`: Unstage all modifications.
 
 ### Cloning an Existing Repository
 
@@ -144,11 +156,11 @@ $ git add <file>...
 To stage it, you run the `git add` command. `git add` is a multipurpose command — you use it to begin tracking new files, to stage files, and to do other things like marking merge-conflicted files as resolved.
 
 | Command                    | New Files | Modified Files | Deleted Files | Description                                                |
-| :------------------------- | :-------- | :------------- | :------------ | :--------------------------------------------------------- |
-| git add -A                 | ✔️         | ✔️              | ✔️             | Stage all (new, modified, deleted) files                   |
-| git add .                  | ✔️         | ✔️              | ✔️             | Stage all (new, modified, deleted) files in current folder |
-| git add --ignore-removal . | ✔️         | ✔️              | ❌             | Stage new and modified files only                          |
-| git add -u                 | ❌         | ✔️              | ✔️             | Stage modified and deleted files only                      |
+|:-------------------------- |:--------- |:-------------- |:------------- |:---------------------------------------------------------- |
+| git add -A                 | ✔️        | ✔️             | ✔️            | Stage all (new, modified, deleted) files                   |
+| git add .                  | ✔️        | ✔️             | ✔️            | Stage all (new, modified, deleted) files in current folder |
+| git add --ignore-removal . | ✔️        | ✔️             | ❌             | Stage new and modified files only                          |
+| git add -u                 | ❌         | ✔️             | ✔️            | Stage modified and deleted files only                      |
 
 **Ignoring** Files
 
@@ -341,8 +353,6 @@ $ git add .
 $ git commit -m "message"
 $ git push origin main
 ```
-
-
 
 ### Work cooperatively
 

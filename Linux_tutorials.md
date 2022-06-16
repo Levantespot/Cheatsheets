@@ -28,7 +28,7 @@ sudo apt install package_name_1 package_name_2 # install packages
 ```bash
 $ ls              # 列出当前目录下的所有文件(或目录)
 $ ls -l           # 显示详细信息
-$ pwd 			  # 列出当前所在的目录
+$ pwd               # 列出当前所在的目录
 $ mkdir temp      # 创建一个目录temp
 $ cd temp         # 切换到目录temp
 $ touch newfile   # 创建一个空文件newfile
@@ -58,17 +58,17 @@ printf (3)           - formatted output conversion
 
 **man**
 
-| section numbers | types of pages                                               |
-| --------------- | ------------------------------------------------------------ |
-| 1               | Executable programs or shell commands                        |
-| 2               | System calls (functions provided by the kernel)              |
-| 3               | Library calls (functions within program libraries)           |
-| 4               | Special files (usually found in /dev)                        |
-| 5               | File formats and conventions eg /etc/passwd                  |
-| 6               | Games                                                        |
+| section numbers | types of pages                                                                |
+| --------------- | ----------------------------------------------------------------------------- |
+| 1               | Executable programs or shell commands                                         |
+| 2               | System calls (functions provided by the kernel)                               |
+| 3               | Library calls (functions within program libraries)                            |
+| 4               | Special files (usually found in /dev)                                         |
+| 5               | File formats and conventions eg /etc/passwd                                   |
+| 6               | Games                                                                         |
 | 7               | Miscellaneous(including macro packages and conventions)，e.g. man(7), groff(7) |
-| 8               | System administration commands (usually only for root)       |
-| 9               | Kernel routines [Non standard]                               |
+| 8               | System administration commands (usually only for root)                        |
+| 9               | Kernel routines [Non standard]                                                |
 
 Conventional section names include
 
@@ -150,32 +150,30 @@ $ whereis printf
 printf: /usr/bin/printf /usr/include/printf.h /usr/share/man/man1/printf.1.gz /usr/share/man/man3/printf.3.gz
 ```
 
-
-
 ## Package management
 
 List of Debian package management tools
 
-| Package    | Description                                                  |
-| ---------- | ------------------------------------------------------------ |
-| `apt`      | For all interactive command line operations, including package installation, removal and dist-upgrades. |
+| Package    | Description                                                                                                                                           |
+| ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `apt`      | For all interactive command line operations, including package installation, removal and dist-upgrades.                                               |
 | `apt-get`  | For calling Debian package management system from scripts. It is also a fallback option when `apt` is not available (often with older Debian systems) |
-| `aptitude` | For an interactive text interface to manage the installed packages and to search the available packages |
+| `aptitude` | For an interactive text interface to manage the installed packages and to search the available packages                                               |
 
 ### Basic package management
 
-| `apt` syntax       | `apt-get`/`apt-cache` syntax | description                                                  |
-| ------------------ | ---------------------------- | ------------------------------------------------------------ |
-| `apt update`       | `apt-get update`             | update package archive metadata                              |
-| `apt install foo`  | `apt-get install foo`        | install candidate version of `foo` package with its dependencies |
-| `apt upgrade`      | `apt-get upgrade`            | install candidate version of installed packages without removing any other packages |
+| `apt` syntax       | `apt-get`/`apt-cache` syntax | description                                                                             |
+| ------------------ | ---------------------------- | --------------------------------------------------------------------------------------- |
+| `apt update`       | `apt-get update`             | update package archive metadata                                                         |
+| `apt install foo`  | `apt-get install foo`        | install candidate version of `foo` package with its dependencies                        |
+| `apt upgrade`      | `apt-get upgrade`            | install candidate version of installed packages without removing any other packages     |
 | `apt full-upgrade` | `apt-get dist-upgrade`       | install candidate version of installed packages while removing other packages if needed |
-| `apt remove foo`   | `apt-get remove foo`         | remove `foo` package while leaving its configuration files   |
-| `apt autoremove`   | `apt-get autoremove`         | remove auto-installed packages which are no longer required  |
-| `apt purge foo`    | `apt-get purge foo`          | purge `foo` package with its configuration files             |
-| `apt clean`        | `apt-get clean`              | clear out the local repository of retrieved package files completely |
-| `apt autoclean`    | `apt-get autoclean`          | clear out the local repository of retrieved package files for outdated packages |
-| `apt show foo`     | `apt-cache show foo`         | display detailed information about `foo` package             |
+| `apt remove foo`   | `apt-get remove foo`         | remove `foo` package while leaving its configuration files                              |
+| `apt autoremove`   | `apt-get autoremove`         | remove auto-installed packages which are no longer required                             |
+| `apt purge foo`    | `apt-get purge foo`          | purge `foo` package with its configuration files                                        |
+| `apt clean`        | `apt-get clean`              | clear out the local repository of retrieved package files completely                    |
+| `apt autoclean`    | `apt-get autoclean`          | clear out the local repository of retrieved package files for outdated packages         |
+| `apt show foo`     | `apt-cache show foo`         | display detailed information about `foo` package                                        |
 
 ## Unix-like filesystem
 
@@ -194,8 +192,6 @@ List of Debian package management tools
 | `/etc/`     | system wide configuration files                       |
 | `/var/log/` | system log files                                      |
 | `/home/`    | all the home directories for all non-privileged users |
-
-
 
 ### Filesystem permissions
 
@@ -238,11 +234,10 @@ For the directory, each corresponding permission allows following actions.
 | `p`       | named pipe            |
 | `s`       | socket                |
 
-
-
 + `chown` is used from the root account to change the owner of the file. 
 
 + `chgrp` is used from the file's owner or root account to change the group of the file. 
+
 + `chmod` is used from the file's owner or root account to change file and directory access permissions.
 
 ```bash
@@ -267,12 +262,12 @@ Note : In order to secure contents of a file in world-writable directories such 
 
 There is an alternative numeric mode to describe file permissions with chmod(1). This numeric mode uses 3 to 4 digit wide octal (radix=8) numbers.
 
-| digit                | meaning                                                      |
-| -------------------- | ------------------------------------------------------------ |
-| 1st digit (optional) | sum of **set user ID** (=4), **set group ID** (=2), and **sticky bit** (=1) |
+| digit                | meaning                                                                             |
+| -------------------- | ----------------------------------------------------------------------------------- |
+| 1st digit (optional) | sum of **set user ID** (=4), **set group ID** (=2), and **sticky bit** (=1)         |
 | 2nd digit            | sum of **read** (=4), **write** (=2), and **execute** (=1) permissions for **user** |
-| 3rd digit            | ditto for **group**                                          |
-| 4th digit            | ditto for **other**                                          |
+| 3rd digit            | ditto for **group**                                                                 |
+| 4th digit            | ditto for **other**                                                                 |
 
 ```bash
 $ touch foo bar
@@ -309,22 +304,22 @@ The hardware devices are just another kind of file on the Debian system. If you 
 
 List of notable system-provided groups for file access
 
-| group   | description for  accessible files and devices                |
-| ------- | ------------------------------------------------------------ |
-| dialout | full  and direct access to serial ports ("/dev/ttyS[0-3]")   |
+| group   | description for  accessible files and devices                             |
+| ------- | ------------------------------------------------------------------------- |
+| dialout | full  and direct access to serial ports ("/dev/ttyS[0-3]")                |
 | dip     | limited  access to serial ports for Dialup IP connection to trusted peers |
-| cdrom   | CD-ROM,  DVD+/-RW drives                                     |
-| audio   | audio  device                                                |
-| video   | video  device                                                |
-| scanner | scanner(s)                                                   |
-| adm     | system  monitoring logs                                      |
-| staff   | some  directories for junior administrative work: "/usr/local", "/home" |
+| cdrom   | CD-ROM,  DVD+/-RW drives                                                  |
+| audio   | audio  device                                                             |
+| video   | video  device                                                             |
+| scanner | scanner(s)                                                                |
+| adm     | system  monitoring logs                                                   |
+| staff   | some  directories for junior administrative work: "/usr/local", "/home"   |
 
 List of notable system provided groups for particular command executions
 
-| group   | accessible  commands                                         |
-| ------- | ------------------------------------------------------------ |
-| sudo    | execute sudo without their password                          |
+| group   | accessible  commands                                                         |
+| ------- | ---------------------------------------------------------------------------- |
+| sudo    | execute sudo without their password                                          |
 | lpadmin | execute  commands to add, modify, and remove printers from printer databases |
 
 ### Timestamps
@@ -416,14 +411,14 @@ There are 2 types of device files.
 
 ### Special device files
 
-| device  file | action | description of  response                                     |
-| ------------ | ------ | ------------------------------------------------------------ |
-| /dev/null    | read   | return  "end-of-file (EOF) character"                        |
-| /dev/null    | write  | return  nothing (a bottomless data dump pit)                 |
-| /dev/zero    | read   | return  "the \0 (NUL)  character" (not the same as the number zero ASCII) |
+| device  file | action | description of  response                                                                       |
+| ------------ | ------ | ---------------------------------------------------------------------------------------------- |
+| /dev/null    | read   | return  "end-of-file (EOF) character"                                                          |
+| /dev/null    | write  | return  nothing (a bottomless data dump pit)                                                   |
+| /dev/zero    | read   | return  "the \0 (NUL)  character" (not the same as the number zero ASCII)                      |
 | /dev/random  | read   | return  random characters from a true random number generator, delivering real  entropy (slow) |
-| /dev/urandom | read   | return  random characters from a cryptographically secure pseudorandom number  generator |
-| /dev/full    | write  | return  the disk-full (ENOSPC) error                         |
+| /dev/urandom | read   | return  random characters from a cryptographically secure pseudorandom number  generator       |
+| /dev/full    | write  | return  the disk-full (ENOSPC) error                                                           |
 
 ### procfs and sysfs
 
@@ -466,11 +461,11 @@ Although POSIX-like shells share the basic syntax, they can differ in behavior f
 
 You can select your login shell with chsh(1).
 
-| package | description                                                  |
-| ------- | ------------------------------------------------------------ |
-| bash    | Bash: the GNU Bourne Again SHell (de facto standard)         |
-| tcsh    | TENEX C Shell: an enhanced version of Berkeley csh           |
-| dash    | Debian Almquist Shell, good for shell script                 |
+| package | description                                                                                                                   |
+| ------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| bash    | Bash: the GNU Bourne Again SHell (de facto standard)                                                                          |
+| tcsh    | TENEX C Shell: an enhanced version of Berkeley csh                                                                            |
+| dash    | Debian Almquist Shell, good for shell script                                                                                  |
 | tmux    | Tmux is a terminal multiplexer: it enables a number of terminals to be created, accessed, and controlled from a single screen |
 
 In this tutorial chapter, the interactive shell always means `bash`.
@@ -483,22 +478,22 @@ You can customize bash(1) behavior by "`~/.bashrc`".
 
 Please note that on a normal Linux character console, only the left-hand `Ctrl` and `Alt` keys work as expected.
 
-| key                 | description of  key binding                                  |
-| ------------------- | ------------------------------------------------------------ |
-| Ctrl-U              | erase line before cursor                                     |
-| Ctrl-W              | erase a word before the cursor                               |
-| Ctrl-H or Backspace | erase a character before cursor                              |
-| Ctrl-D              | terminate input (exit shell if you are using shell)          |
-| Ctrl-C              | terminate a running program                                  |
-| Ctrl-Z              | temporarily stop program by moving it to the background job  |
-| Ctrl-S              | halt output to screen                                        |
-| Ctrl-Q              | reactivate output to screen                                  |
-| Ctrl-Alt-Del        | reboot/halt the system, see inittab(5)                       |
-| Left-Alt-key        | q::meta-key for Emacs and the similar UI                     |
-| Up-arrow            | start command history search under bash                      |
-| Ctrl-R              | start incremental command history search under bash          |
+| key                 | description of  key binding                                   |
+| ------------------- | ------------------------------------------------------------- |
+| Ctrl-U              | erase line before cursor                                      |
+| Ctrl-W              | erase a word before the cursor                                |
+| Ctrl-H or Backspace | erase a character before cursor                               |
+| Ctrl-D              | terminate input (exit shell if you are using shell)           |
+| Ctrl-C              | terminate a running program                                   |
+| Ctrl-Z              | temporarily stop program by moving it to the background job   |
+| Ctrl-S              | halt output to screen                                         |
+| Ctrl-Q              | reactivate output to screen                                   |
+| Ctrl-Alt-Del        | reboot/halt the system, see inittab(5)                        |
+| Left-Alt-key        | q::meta-key for Emacs and the similar UI                      |
+| Up-arrow            | start command history search under bash                       |
+| Ctrl-R              | start incremental command history search under bash           |
 | Tab                 | complete input of the filename to the command line under bash |
-| Ctrl-V Tab          | input Tab without expansion to the command line under bash   |
+| Ctrl-V Tab          | input Tab without expansion to the command line under bash    |
 
 ### Unix style mouse operations
 
@@ -540,74 +535,74 @@ $ vim typescript
 
 ### Basic Unix commands
 
-| command                         | description                                                  |
-| ------------------------------- | ------------------------------------------------------------ |
-| pwd                             | display name of current/working directory                    |
-| whoami                          | display current user name                                    |
-| id                              | display current user identity (name, uid, gid, and associated groups) |
-| file <foo>                      | display a type of file for the file "<foo>"                  |
-| type -p <commandname>           | display a file location of command "<commandname>"           |
-| which <commandname>             | , ,                                                          |
-| type <commandname>              | display information on command "<commandname>"               |
-| apropos <key-word>              | find commands related to "<key-word>"                        |
-| man -k <key-word>               | , ,                                                          |
-| whatis <commandname>            | display one line explanation on command "<commandname>"      |
-| man -a <commandname>            | display explanation on command "<commandname>" (Unix  style) |
-| info <commandname>              | display rather long explanation on command  "<commandname>" (GNU style) |
-| ls                              | list contents of directory (non-dot files and directories)   |
-| ls -a                           | list contents of directory (all files and directories)       |
-| ls -A                           | list contents of directory (almost all files and directories, i.e., skip  ".." and ".") |
-| ls -la                          | list all contents of directory with detail information       |
-| ls -lai                         | list all contents of directory with inode number and detail information |
-| ls -d                           | list all directories under the current directory             |
-| tree                            | display file tree contents                                   |
-| lsof <foo>                      | list open status of file "<foo>"                             |
-| lsof -p <pid>                   | list files opened by the process ID: "<pid>"                 |
-| mkdir <foo>                     | make a new directory "<foo>" in the current directory        |
-| rmdir <foo>                     | remove a directory "<foo>" in the current directory          |
-| cd <foo>                        | change directory to the directory "<foo>" in the current  directory or in the directory listed in the variable "$CDPATH" |
-| cd /                            | change directory to the root directory                       |
-| cd                              | change directory to the current user's home directory        |
-| cd /<foo>                       | change directory to the absolute path directory "/<foo>"     |
-| cd ..                           | change directory to the parent directory                     |
-| cd ~<foo>                       | change directory to the home directory of the user  "<foo>"  |
-| cd -                            | change directory to the previous directory                   |
-| </etc/motd pager                | display contents of "/etc/motd" using the default pager      |
-| touch <junkfile>                | create a empty file "<junkfile>"                             |
-| cp <foo> <bar>                  | copy a existing file "<foo>" to a new file  "<bar>"          |
-| rm <junkfile>                   | remove a file "<junkfile>"                                   |
-| mv <foo> <bar>                  | rename an existing file "<foo>" to a new name  "<bar>" ("<bar>" must not exist) |
-| mv <foo> <bar>                  | move an existing file "<foo>" to a new location  "<bar>/<foo>" (the directory "<bar>"  must exist) |
+| command                         | description                                                                                                                                                        |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| pwd                             | display name of current/working directory                                                                                                                          |
+| whoami                          | display current user name                                                                                                                                          |
+| id                              | display current user identity (name, uid, gid, and associated groups)                                                                                              |
+| file <foo>                      | display a type of file for the file "<foo>"                                                                                                                        |
+| type -p <commandname>           | display a file location of command "<commandname>"                                                                                                                 |
+| which <commandname>             | , ,                                                                                                                                                                |
+| type <commandname>              | display information on command "<commandname>"                                                                                                                     |
+| apropos <key-word>              | find commands related to "<key-word>"                                                                                                                              |
+| man -k <key-word>               | , ,                                                                                                                                                                |
+| whatis <commandname>            | display one line explanation on command "<commandname>"                                                                                                            |
+| man -a <commandname>            | display explanation on command "<commandname>" (Unix  style)                                                                                                       |
+| info <commandname>              | display rather long explanation on command  "<commandname>" (GNU style)                                                                                            |
+| ls                              | list contents of directory (non-dot files and directories)                                                                                                         |
+| ls -a                           | list contents of directory (all files and directories)                                                                                                             |
+| ls -A                           | list contents of directory (almost all files and directories, i.e., skip  ".." and ".")                                                                            |
+| ls -la                          | list all contents of directory with detail information                                                                                                             |
+| ls -lai                         | list all contents of directory with inode number and detail information                                                                                            |
+| ls -d                           | list all directories under the current directory                                                                                                                   |
+| tree                            | display file tree contents                                                                                                                                         |
+| lsof <foo>                      | list open status of file "<foo>"                                                                                                                                   |
+| lsof -p <pid>                   | list files opened by the process ID: "<pid>"                                                                                                                       |
+| mkdir <foo>                     | make a new directory "<foo>" in the current directory                                                                                                              |
+| rmdir <foo>                     | remove a directory "<foo>" in the current directory                                                                                                                |
+| cd <foo>                        | change directory to the directory "<foo>" in the current  directory or in the directory listed in the variable "$CDPATH"                                           |
+| cd /                            | change directory to the root directory                                                                                                                             |
+| cd                              | change directory to the current user's home directory                                                                                                              |
+| cd /<foo>                       | change directory to the absolute path directory "/<foo>"                                                                                                           |
+| cd ..                           | change directory to the parent directory                                                                                                                           |
+| cd ~<foo>                       | change directory to the home directory of the user  "<foo>"                                                                                                        |
+| cd -                            | change directory to the previous directory                                                                                                                         |
+| </etc/motd pager                | display contents of "/etc/motd" using the default pager                                                                                                            |
+| touch <junkfile>                | create a empty file "<junkfile>"                                                                                                                                   |
+| cp <foo> <bar>                  | copy a existing file "<foo>" to a new file  "<bar>"                                                                                                                |
+| rm <junkfile>                   | remove a file "<junkfile>"                                                                                                                                         |
+| mv <foo> <bar>                  | rename an existing file "<foo>" to a new name  "<bar>" ("<bar>" must not exist)                                                                                    |
+| mv <foo> <bar>                  | move an existing file "<foo>" to a new location  "<bar>/<foo>" (the directory "<bar>"  must exist)                                                                 |
 | mv <foo> <bar>/<baz>            | move an existing file "<foo>" to a new location with a  new name "<bar>/<baz>" (the directory  "<bar>" must exist but the directory  "<bar>/<baz>" must not exist) |
-| chmod 600 <foo>                 | make an existing file "<foo>" to be non-readable and  non-writable by the other people (non-executable for all) |
-| chmod 644 <foo>                 | make an existing file "<foo>" to be readable but  non-writable by the other people (non-executable for all) |
-| chmod 755 <foo>                 | make an existing file "<foo>" to be readable but  non-writable by the other people (executable for all) |
-| find . -name <pattern>          | find matching filenames using shell "<pattern>" (slower)     |
-| locate -d . <pattern>           | find matching filenames using shell "<pattern>" (quicker  using regularly generated database) |
-| grep -e "<pattern>"  *.html     | find a "<pattern>" in all files ending with  ".html" in current directory and display them all |
-| top                             | display process information using full screen, type "q" to quit |
-| ps aux \| pager                 | display information on all the running processes using BSD style output |
-| ps -ef \| pager                 | display information on all the running processes using Unix system-V  style output |
-| ps aux \| grep -e "[e]xim4*"    | display all processes running "exim" and "exim4"             |
-| ps axf \| pager                 | display information on all the running processes with ASCII art output |
-| kill <1234>                     | kill a process identified by the process ID: "<1234>"        |
-| gzip <foo>                      | compress "<foo>" to create "<foo>.gz"  using the Lempel-Ziv coding (LZ77) |
-| gunzip <foo>.gz                 | decompress "<foo>.gz" to create "<foo>"                      |
-| bzip2 <foo>                     | compress "<foo>" to create "<foo>.bz2"  using the Burrows-Wheeler block sorting text compression algorithm, and  Huffman coding (better compression than gzip) |
-| bunzip2 <foo>.bz2               | decompress "<foo>.bz2" to create "<foo>"                     |
-| xz <foo>                        | compress "<foo>" to create "<foo>.xz"  using the Lempel–Ziv–Markov chain algorithm (better compression  than bzip2) |
-| unxz <foo>.xz                   | decompress "<foo>.xz" to create "<foo>"                      |
-| tar -xvf <foo>.tar              | extract files from "<foo>.tar" archive                       |
-| tar -xvzf <foo>.tar.gz          | extract files from gzipped "<foo>.tar.gz" archive            |
-| tar -xvjf <foo>.tar.bz2         | extract files from "<foo>.tar.bz2" archive                   |
-| tar -xvJf <foo>.tar.xz          | extract files from "<foo>.tar.xz" archive                    |
-| tar -cvf <foo>.tar <bar>/       | archive contents of folder "<bar>/" in  "<foo>.tar" archive  |
-| tar -cvzf <foo>.tar.gz <bar>/   | archive contents of folder "<bar>/" in compressed  "<foo>.tar.gz" archive |
-| tar -cvjf <foo>.tar.bz2  <bar>/ | archive contents of folder "<bar>/" in  "<foo>.tar.bz2" archive |
-| tar -cvJf <foo>.tar.xz <bar>/   | archive contents of folder "<bar>/" in  "<foo>.tar.xz" archive |
-| zcat README.gz \| pager         | display contents of compressed "README.gz" using the default  pager |
-| zcat README.gz > foo            | create a file "foo" with the decompressed content of  "README.gz" |
-| zcat README.gz >> foo           | append the decompressed content of "README.gz" to the end of  the file "foo" (if it does not exist, create it first) |
+| chmod 600 <foo>                 | make an existing file "<foo>" to be non-readable and  non-writable by the other people (non-executable for all)                                                    |
+| chmod 644 <foo>                 | make an existing file "<foo>" to be readable but  non-writable by the other people (non-executable for all)                                                        |
+| chmod 755 <foo>                 | make an existing file "<foo>" to be readable but  non-writable by the other people (executable for all)                                                            |
+| find . -name <pattern>          | find matching filenames using shell "<pattern>" (slower)                                                                                                           |
+| locate -d . <pattern>           | find matching filenames using shell "<pattern>" (quicker  using regularly generated database)                                                                      |
+| grep -e "<pattern>"  *.html     | find a "<pattern>" in all files ending with  ".html" in current directory and display them all                                                                     |
+| top                             | display process information using full screen, type "q" to quit                                                                                                    |
+| ps aux \| pager                 | display information on all the running processes using BSD style output                                                                                            |
+| ps -ef \| pager                 | display information on all the running processes using Unix system-V  style output                                                                                 |
+| ps aux \| grep -e "[e]xim4*"    | display all processes running "exim" and "exim4"                                                                                                                   |
+| ps axf \| pager                 | display information on all the running processes with ASCII art output                                                                                             |
+| kill <1234>                     | kill a process identified by the process ID: "<1234>"                                                                                                              |
+| gzip <foo>                      | compress "<foo>" to create "<foo>.gz"  using the Lempel-Ziv coding (LZ77)                                                                                          |
+| gunzip <foo>.gz                 | decompress "<foo>.gz" to create "<foo>"                                                                                                                            |
+| bzip2 <foo>                     | compress "<foo>" to create "<foo>.bz2"  using the Burrows-Wheeler block sorting text compression algorithm, and  Huffman coding (better compression than gzip)     |
+| bunzip2 <foo>.bz2               | decompress "<foo>.bz2" to create "<foo>"                                                                                                                           |
+| xz <foo>                        | compress "<foo>" to create "<foo>.xz"  using the Lempel–Ziv–Markov chain algorithm (better compression  than bzip2)                                                |
+| unxz <foo>.xz                   | decompress "<foo>.xz" to create "<foo>"                                                                                                                            |
+| tar -xvf <foo>.tar              | extract files from "<foo>.tar" archive                                                                                                                             |
+| tar -xvzf <foo>.tar.gz          | extract files from gzipped "<foo>.tar.gz" archive                                                                                                                  |
+| tar -xvjf <foo>.tar.bz2         | extract files from "<foo>.tar.bz2" archive                                                                                                                         |
+| tar -xvJf <foo>.tar.xz          | extract files from "<foo>.tar.xz" archive                                                                                                                          |
+| tar -cvf <foo>.tar <bar>/       | archive contents of folder "<bar>/" in  "<foo>.tar" archive                                                                                                        |
+| tar -cvzf <foo>.tar.gz <bar>/   | archive contents of folder "<bar>/" in compressed  "<foo>.tar.gz" archive                                                                                          |
+| tar -cvjf <foo>.tar.bz2  <bar>/ | archive contents of folder "<bar>/" in  "<foo>.tar.bz2" archive                                                                                                    |
+| tar -cvJf <foo>.tar.xz <bar>/   | archive contents of folder "<bar>/" in  "<foo>.tar.xz" archive                                                                                                     |
+| zcat README.gz \| pager         | display contents of compressed "README.gz" using the default  pager                                                                                                |
+| zcat README.gz > foo            | create a file "foo" with the decompressed content of  "README.gz"                                                                                                  |
+| zcat README.gz >> foo           | append the decompressed content of "README.gz" to the end of  the file "foo" (if it does not exist, create it first)                                               |
 
 ## The simple shell command
 
@@ -621,23 +616,23 @@ A simple command is a sequence of components.
 
 ### Environment variables
 
-| Variable name | Description                                                  |
-| ------------- | ------------------------------------------------------------ |
-| `$LANG`       |                                                              |
+| Variable name | Description                                                                                                |
+| ------------- | ---------------------------------------------------------------------------------------------------------- |
+| `$LANG`       |                                                                                                            |
 | `$PATH`       | The shell searches the command in the list of directories contained in the "`$PATH`" environment variable. |
-| `$HOME`       | The home directory is identified by the environment variable "`$HOME`". |
+| `$HOME`       | The home directory is identified by the environment variable "`$HOME`".                                    |
 
 ### Shell glob
 
 Often you want a command to work with a group of files without typing all of them. The filename expansion pattern using the shell **glob**, (sometimes referred as **wildcards**), facilitate this need.
 
-| shell glob pattern | description of match rule                                    |
-| ------------------ | ------------------------------------------------------------ |
-| *                  | filename (segment) not started with "."                      |
-| .*                 | filename (segment) started with "."                          |
-| ?                  | exactly one character                                        |
-| […]                | exactly one character with any character enclosed in brackets |
-| [a-z]              | exactly one character with any character between "a" and  "z" |
+| shell glob pattern | description of match rule                                                            |
+| ------------------ | ------------------------------------------------------------------------------------ |
+| *                  | filename (segment) not started with "."                                              |
+| .*                 | filename (segment) started with "."                                                  |
+| ?                  | exactly one character                                                                |
+| […]                | exactly one character with any character enclosed in brackets                        |
+| [a-z]              | exactly one character with any character between "a" and  "z"                        |
 | [^…]               | exactly one character other than any character enclosed in brackets  (excluding "^") |
 
 ```bash
@@ -670,21 +665,21 @@ Each command returns its exit status (variable: "`$?`") as the return value.
 
 ### Typical command sequences and shell redirection
 
-| command  idiom            | description                                                  |
-| ------------------------- | ------------------------------------------------------------ |
-| command &                 | **background** execution of command in the **subshell**      |
-| command1 \| command2      | **pipe** the standard output of command1 to the standard input of command2 (concurrent execution) |
-| command1 2>&1 \| command2 | **pipe** both standard output and standard error of command1 to the standard input  of command2 (concurrent execution) |
-| command1 ; command2       | execute command1 and command2 **sequentially**               |
-| command1 && command2      | execute command1; if successful,  execute command2 **sequentially** (return success if  both command1 and command2 are successful) |
-| command1 \|\| command2    | execute command1; if not successful,  execute command2 **sequentially** (return success  if command1 or command2 are successful) |
-| command > foo             | redirect standard output of command to  a file foo (overwrite) |
-| command 2> foo            | redirect standard error of command to  a file foo (overwrite) |
-| command >> foo            | redirect standard output of command to  a file foo (append)  |
-| command 2>> foo           | redirect standard error of command to  a file foo (append)   |
-| command > foo 2>&1        | redirect both standard output and standard error of command to a file foo |
-| command < foo             | redirect  standard input of command to a file foo            |
-| command << delimiter      | redirect  standard input of command to the following lines until "delimiter" is met (here document) |
+| command  idiom            | description                                                                                                                                                    |
+| ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| command &                 | **background** execution of command in the **subshell**                                                                                                        |
+| command1 \| command2      | **pipe** the standard output of command1 to the standard input of command2 (concurrent execution)                                                              |
+| command1 2>&1 \| command2 | **pipe** both standard output and standard error of command1 to the standard input  of command2 (concurrent execution)                                         |
+| command1 ; command2       | execute command1 and command2 **sequentially**                                                                                                                 |
+| command1 && command2      | execute command1; if successful,  execute command2 **sequentially** (return success if  both command1 and command2 are successful)                             |
+| command1 \|\| command2    | execute command1; if not successful,  execute command2 **sequentially** (return success  if command1 or command2 are successful)                               |
+| command > foo             | redirect standard output of command to  a file foo (overwrite)                                                                                                 |
+| command 2> foo            | redirect standard error of command to  a file foo (overwrite)                                                                                                  |
+| command >> foo            | redirect standard output of command to  a file foo (append)                                                                                                    |
+| command 2>> foo           | redirect standard error of command to  a file foo (append)                                                                                                     |
+| command > foo 2>&1        | redirect both standard output and standard error of command to a file foo                                                                                      |
+| command < foo             | redirect  standard input of command to a file foo                                                                                                              |
+| command << delimiter      | redirect  standard input of command to the following lines until "delimiter" is met (here document)                                                            |
 | command <<- delimiter     | redirect  standard input of command to the following lines until "delimiter" is met (here document, the leading tab characters are  stripped from input lines) |
 
 The shell allows you to open files using the`exec` builtin with an arbitrary file descriptor.
@@ -780,78 +775,78 @@ A **metacharacter** is just a character with a special meaning. There are 2 majo
 
 Ref: [1](https://learnbyexample.github.io/learn_gnused/breere-regular-expressions.html), 
 
-| BRE                        | description of the regular expression                        |
-| -------------------------- | ------------------------------------------------------------ |
-| BRE |Basic Regular Expression, enabled by default|
-| ERE | Extended Regular Expression, enabled using `-E` option |
-|  | **note**: only ERE syntax is covered below |
-| metacharacters | characters with special meaning in REGEXP |
-| `c`                        | match non-metacharacter `c`                               |
-| `\c`                       | match a literal character `c` even if `c` is metacharacter by itself |
-| \d                         | match single digit from 0 to 9, equivalent to [0-9],        |
-| \D                         | match any non-digit character                                |
-| \b                         | match the boundary between a word and a non-word character   |
-| \w                         | match a character, equivalent to [A-Za-z0-9_]                |
-| \W                         | match any non-alphanumeric character, e.g. punctuation.      |
-| \s                         | match a space, including \\n,\\t,\\r                         |
-| \S                         | match any non-whitespace character                           |
-| .                          | match single character including newline                     |
-| ^r                         | position at the beginning of a string                        |
-| (r)                        | capture groups of characters for further processing, e.g. (IMG\d+).pdf |
-| (?:r)                      | just make groups, without capture, thus can not be referred  |
-| (r1(r2))                   | capture nested groups by nested parenthesis, e.g. (IMG(\d+))\.png |
-| [abc…]                     | match single characters in "abc…"                            |
-| [^abc…]                    | match single characters except in "abc…"                     |
-| r*                         | match zero or more regular expressions identified by "r"     |
-| r\\+                       | match one or more regular expressions identified by "r"      |
-| r\\?                       | match zero or one regular expressions identified by "r"      |
-| w{3}                       | match a character 'w' 3 times. 'w' can also be like [a-zA-Z] |
-| w{1,3}                     | match a character 'w' no more than 3 times, but no less than once |
-| a(?=b)                     | positive lookahead 先行断言，a 只有在 b 前面才匹配           |
-| a(?!b)                     | negative lookahead 先行否定断言，a 只有不在 b 前面才匹配     |
-| (?<=b)a                    | positive lookbehind 后行断言，a 只有在 b 后面才匹配          |
-| (?<!b)a                    | negative lookbehind 后行否定断言，a 只有不在 b 后面才匹配    |
+| BRE            | description of the regular expression                                  |
+| -------------- | ---------------------------------------------------------------------- |
+| BRE            | Basic Regular Expression, enabled by default                           |
+| ERE            | Extended Regular Expression, enabled using `-E` option                 |
+|                | **note**: only ERE syntax is covered below                             |
+| metacharacters | characters with special meaning in REGEXP                              |
+| `c`            | match non-metacharacter `c`                                            |
+| `\c`           | match a literal character `c` even if `c` is metacharacter by itself   |
+| \d             | match single digit from 0 to 9, equivalent to [0-9],                   |
+| \D             | match any non-digit character                                          |
+| \b             | match the boundary between a word and a non-word character             |
+| \w             | match a character, equivalent to [A-Za-z0-9_]                          |
+| \W             | match any non-alphanumeric character, e.g. punctuation.                |
+| \s             | match a space, including \\n,\\t,\\r                                   |
+| \S             | match any non-whitespace character                                     |
+| .              | match single character including newline                               |
+| ^r             | position at the beginning of a string                                  |
+| (r)            | capture groups of characters for further processing, e.g. (IMG\d+).pdf |
+| (?:r)          | just make groups, without capture, thus can not be referred            |
+| (r1(r2))       | capture nested groups by nested parenthesis, e.g. (IMG(\d+))\.png      |
+| [abc…]         | match single characters in "abc…"                                      |
+| [^abc…]        | match single characters except in "abc…"                               |
+| r*             | match zero or more regular expressions identified by "r"               |
+| r\\+           | match one or more regular expressions identified by "r"                |
+| r\\?           | match zero or one regular expressions identified by "r"                |
+| w{3}           | match a character 'w' 3 times. 'w' can also be like [a-zA-Z]           |
+| w{1,3}         | match a character 'w' no more than 3 times, but no less than once      |
+| a(?=b)         | positive lookahead 先行断言，a 只有在 b 前面才匹配                                  |
+| a(?!b)         | negative lookahead 先行否定断言，a 只有不在 b 前面才匹配                               |
+| (?<=b)a        | positive lookbehind 后行断言，a 只有在 b 后面才匹配                                 |
+| (?<!b)a        | negative lookbehind 后行否定断言，a 只有不在 b 后面才匹配                              |
 
 Regular expression cheat sheet
 
-| Regex         | Description     |
-| ------------- | --------------- |
+| Regex         | Description   |
+| ------------- | ------------- |
 | ^$            | 空行 empty line |
-| [\w\|\s\|,]*. | 一个英文句子    |
+| [\w\|\s\|,]*. | 一个英文句子        |
 | .*            | 一行            |
 
 ### Replacement expressions
 
-| replacement  expression | description of  the text to replace the replacement expression |
-| ----------------------- | ------------------------------------------------------------ |
-| &                       | what  the regular expression matched (use \& in emacs)       |
+| replacement  expression | description of  the text to replace the replacement expression          |
+| ----------------------- | ----------------------------------------------------------------------- |
+| &                       | what  the regular expression matched (use \& in emacs)                  |
 | \n                      | what  the n-th bracketed regular  expression matched ("n" being number) |
 
 ### Script snippets for piping commands
 
-| script  snippet (type in one line) | effect of command                                            |
-| ---------------------------------- | ------------------------------------------------------------ |
-| find /usr -print                   | find  all files under "/usr"                                 |
-| seq 1 100                          | print  1 to 100                                              |
-| \| xargs -n 1 <command>            | run  command repeatedly with each item from pipe as its argument |
-| \| xargs -n 1 echo                 | split  white-space-separated items from pipe into lines      |
-| \| xargs echo                      | merge  all lines from pipe into a line                       |
-| \| grep -e <regex_pattern>         | extract  lines from pipe containing <regex_pattern>          |
-| \| grep -v -e <regex_pattern>      | extract  lines from pipe not containing <regex_pattern>      |
+| script  snippet (type in one line) | effect of command                                                  |
+| ---------------------------------- | ------------------------------------------------------------------ |
+| find /usr -print                   | find  all files under "/usr"                                       |
+| seq 1 100                          | print  1 to 100                                                    |
+| \| xargs -n 1 <command>            | run  command repeatedly with each item from pipe as its argument   |
+| \| xargs -n 1 echo                 | split  white-space-separated items from pipe into lines            |
+| \| xargs echo                      | merge  all lines from pipe into a line                             |
+| \| grep -e <regex_pattern>         | extract  lines from pipe containing <regex_pattern>                |
+| \| grep -v -e <regex_pattern>      | extract  lines from pipe not containing <regex_pattern>            |
 | \| cut -d: -f3 -                   | extract  third field from pipe separated by ":" (passwd file etc.) |
-| \| awk '{ print $3 }'              | extract  third field from pipe separated by whitespaces      |
-| \| awk -F'\t' '{ print $3 }'       | extract  third field from pipe separated by tab              |
-| \| col -bx                         | remove  backspace and expand tabs to spaces                  |
-| \| expand -                        | expand  tabs                                                 |
-| \| sort\| uniq                     | sort  and remove duplicates                                  |
-| \| tr 'A-Z' 'a-z'                  | convert  uppercase to lowercase                              |
-| \| tr -d '\n'                      | concatenate  lines into one line                             |
-| \| tr -d '\r'                      | remove  CR                                                   |
-| \| sed 's/^/# /'                   | add  "#" to the start of  each line                          |
-| \| sed 's/\.ext//g'                | remove  ".ext"                                               |
-| \| sed -n -e 2p                    | print  the second line                                       |
-| \| head -n 2 -                     | print  the first 2 lines                                     |
-| \| tail -n 2 -                     | print  the last 2 lines                                      |
+| \| awk '{ print $3 }'              | extract  third field from pipe separated by whitespaces            |
+| \| awk -F'\t' '{ print $3 }'       | extract  third field from pipe separated by tab                    |
+| \| col -bx                         | remove  backspace and expand tabs to spaces                        |
+| \| expand -                        | expand  tabs                                                       |
+| \| sort\| uniq                     | sort  and remove duplicates                                        |
+| \| tr 'A-Z' 'a-z'                  | convert  uppercase to lowercase                                    |
+| \| tr -d '\n'                      | concatenate  lines into one line                                   |
+| \| tr -d '\r'                      | remove  CR                                                         |
+| \| sed 's/^/# /'                   | add  "#" to the start of  each line                                |
+| \| sed 's/\.ext//g'                | remove  ".ext"                                                     |
+| \| sed -n -e 2p                    | print  the second line                                             |
+| \| head -n 2 -                     | print  the first 2 lines                                           |
+| \| tail -n 2 -                     | print  the last 2 lines                                            |
 
 ## The shell script
 
@@ -891,16 +886,16 @@ $ ./my_script.sh # run script
 
 Special shell parameters are frequently used in the shell script.
 
-| CMD  | Description                                                  | Example                            |
-| ---- | ------------------------------------------------------------ | ---------------------------------- |
-| $$   | PID  of current shell                                        | `echo  "my PID = $$"`              |
-| $!   | PID  of last background command                              | `ls  & echo "PID of ls = $!"`      |
-| $?   | exit  status of last command                                 | `ls  ; echo "ls returned code $?"` |
-| $0   | Name  of current command (as called)                         | `echo  "I am $0"`                  |
-| $1   | Name  of current command's first parameter                   | `echo  "My first argument is $1"`  |
-| $9   | Name  of current command's ninth parameter                   | `echo  "My ninth argument is $9"`  |
-| $@   | All  of current command's parameters (preserving whitespace and quoting) | `echo  "My arguments are $@"`      |
-| $*   | All  of current command's parameters (not preserving whitespace and quoting) | `echo  "My arguments are $*"`      |
+| CMD | Description                                                                  | Example                            |
+| --- | ---------------------------------------------------------------------------- | ---------------------------------- |
+| $$  | PID  of current shell                                                        | `echo  "my PID = $$"`              |
+| $!  | PID  of last background command                                              | `ls  & echo "PID of ls = $!"`      |
+| $?  | exit  status of last command                                                 | `ls  ; echo "ls returned code $?"` |
+| $0  | Name  of current command (as called)                                         | `echo  "I am $0"`                  |
+| $1  | Name  of current command's first parameter                                   | `echo  "My first argument is $1"`  |
+| $9  | Name  of current command's ninth parameter                                   | `echo  "My ninth argument is $9"`  |
+| $@  | All  of current command's parameters (preserving whitespace and quoting)     | `echo  "My arguments are $@"`      |
+| $*  | All  of current command's parameters (not preserving whitespace and quoting) | `echo  "My arguments are $*"`      |
 
 **List of shell parameter expansions**
 
@@ -927,15 +922,15 @@ List of key shell parameter substitutions
 
 List of file comparison operators in the conditional expression
 
-| equation            | condition to  return logical true                            |
-| ------------------- | ------------------------------------------------------------ |
-| -e <file>           | <file>  exists                                               |
-| -d <file>           | <file>  exists and is a directory                            |
-| -f <file>           | <file>  exists and is a regular file                         |
-| -w <file>           | <file>  exists and is writable                               |
-| -x <file>           | <file>  exists and is executable                             |
-| <file1> -nt <file2> | <file1>  is newer than <file2> (modification)                |
-| <file1> -ot <file2> | <file1>  is older than <file2> (modification)                |
+| equation            | condition to  return logical true                                     |
+| ------------------- | --------------------------------------------------------------------- |
+| -e <file>           | <file>  exists                                                        |
+| -d <file>           | <file>  exists and is a directory                                     |
+| -f <file>           | <file>  exists and is a regular file                                  |
+| -w <file>           | <file>  exists and is writable                                        |
+| -x <file>           | <file>  exists and is executable                                      |
+| <file1> -nt <file2> | <file1>  is newer than <file2> (modification)                         |
+| <file1> -ot <file2> | <file1>  is older than <file2> (modification)                         |
 | <file1> -ef <file2> | <file1>  and <file2> are on the same device and the same inode number |
 
 List of string comparison operators in the conditional expression
@@ -948,8 +943,6 @@ List of string comparison operators in the conditional expression
 | <str1> != <str2> | <str1>  and <str2> are not equal               |
 | <str1> < <str2>  | <str1>  sorts before <str2> (locale dependent) |
 | <str1> > <str2>  | <str1>  sorts after <str2> (locale dependent)  |
-
-
 
 ```bash
 #!/bin/sh
@@ -967,8 +960,6 @@ Levante # Typed in the shell.
 Hello, Levante. Nice to meet you!
 ```
 
- 
-
 ```bash
 # Variables - Part 2
 
@@ -979,7 +970,7 @@ echo "VAR is: $Variable2"
 
 $ Variable2="Lee"
 $ ./my_script.sh
-VAR is:			# Ops, we got nothing here
+VAR is:            # Ops, we got nothing here
 VAR is: Levante
 $ echo $Variable2
 Lee
@@ -995,8 +986,6 @@ VAR is: Levante
 $ echo $Variable2
 Lee
 ```
-
- 
 
 ```bash
 # Variables - Part 3
@@ -1014,8 +1003,6 @@ Levante
 # Wildcards
 *
 ```
-
- 
 
 ```bash
 # Variables - Part 4
@@ -1052,7 +1039,7 @@ if [ -z "$myname" ]; then # -z means [ Var = 0 ]
 fi
 echo "Your name is : $myname"
 
-Levante$ ./name.sh	# without user's input
+Levante$ ./name.sh    # without user's input
 What is your name [ Levante ]
 Your name is : Levante
 
@@ -1085,8 +1072,8 @@ my_script.sh  my_script.txt
 $ ./my_script.sh
 Looping ... i is set to hello
 Looping ... i is set to 1
-Looping ... i is set to my_script.sh	# file in the dir
-Looping ... i is set to my_script.txt	# file in the dir
+Looping ... i is set to my_script.sh    # file in the dir
+Looping ... i is set to my_script.txt    # file in the dir
 Looping ... i is set to 2
 Looping ... i is set to goodbye
 
@@ -1103,7 +1090,7 @@ done
 # 1.The colon (:) always evaluates to true.
 while :
 do
-	echo "Looping"
+    echo "Looping"
 done
 
 #!/bin/sh
@@ -1134,7 +1121,7 @@ Basic **conditional idioms** to remember are the following.
 + `<command> || <if_not_success_run_this_command_too> || true`
 
 + A multi-line script snippet as the following
-
+  
   ```bash
   if [ <conditional_expression> ]; then
    <if_success_run_this_command>
@@ -1147,8 +1134,6 @@ Basic **conditional idioms** to remember are the following.
 
 List of file comparison operators in the conditional expression
 
-
-
 ```bash
 # "[" is a symbolic link to "test", just to make shell programs more readable. Watch out the space around operators.
 # if ["$var"="bar"] won't work
@@ -1159,7 +1144,7 @@ echo "Please input a string in [bar, foo]"
 read var
 if [ "$var" = "bar" ]
 then
-	echo "bar"
+    echo "bar"
 elif [ "$var" = "foo" ]; then # semicolon (;) to join two lines together.
     echo "foo"
 else
@@ -1170,8 +1155,8 @@ fi
 #!/bin/sh
 if [ A = B ]
 then
-	echo C
-	echo D
+    echo C
+    echo D
 else
     echo E
     echo F
@@ -1179,7 +1164,7 @@ fi
 
 #!/bin/sh
 [ A = B ] && echo C && echo D || \
-	echo E && echo F
+    echo E && echo F
 # ackslash (\) is used to split the single-line command across two lines in the shell script file
 
 #!/bin/sh
@@ -1236,16 +1221,16 @@ while :
 do
   read INPUT_STRING
   case $INPUT_STRING in
-	hello)
-		echo "Hello yourself!"
-		;;
-	bye)
-		echo "See you again!"
-		break # break out of the while loop
-		;;
-	*)
-		echo "Sorry, I don't understand"
-		;;
+    hello)
+        echo "Hello yourself!"
+        ;;
+    bye)
+        echo "See you again!"
+        break # break out of the while loop
+        ;;
+    *)
+        echo "Sorry, I don't understand"
+        ;;
   esac
 done
 ```
@@ -1350,8 +1335,6 @@ passwd --stdin Levante 123
 Added user Levante (Super man) with pass 123
 ```
 
-
-
 ```bash
 # Scope of variables
 #!/bin/sh
@@ -1370,8 +1353,8 @@ echo "x is $x"
 $ ./my_script.sh a b c
 Script was called with a b c
 x is 1
-myfunc was called as : 1 2 3	# means $@ will change between functions
-x is 2	# means this variable is a global variable
+myfunc was called as : 1 2 3    # means $@ will change between functions
+x is 2    # means this variable is a global variable
 
 
 #!/bin/sh
@@ -1389,8 +1372,6 @@ $1 is Hello
 a is World
 ```
 
-
-
 ```bash
 # Recursion
 #!/bin/sh
@@ -1407,8 +1388,6 @@ factorial()
   fi
 }
 ```
-
-
 
 ```bash
 # Libraries
@@ -1449,8 +1428,6 @@ rename .html .html-bak
 # Here we see two user shell scripts, function2.sh and function3.sh, each "sourceing" the common library file common.lib, and using variables and functions declared in that file.
 ```
 
-
-
 ```bash
 # Return codes
 # Note: the return value from function is a single byte, so it can only have a value between 0 and 255.
@@ -1472,39 +1449,8 @@ $ ./my_script.sh
 $? = 1
 ```
 
-### Links
+## Ref
 
 [Shell Mistakes](http://www.greenend.org.uk/rjk/tech/shellmistakes.html)
 
 [Linux基础](https://linuxtools-rst.readthedocs.io/zh_CN/latest/base/index.html#id2)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
