@@ -231,8 +231,6 @@ docker run -it --rm --name test --mount source=<vol-name>,target=/my_data <image
 docker run -it -v /home/b320a/L:/my-dir -p 6321:8888 --gpus all --ipc=host nvcr.io/nvidia/pytorch:21.08-py3
 ```
 
-
-
 ## Pytorch & Docker
 
 1. 更新驱动
@@ -240,32 +238,31 @@ docker run -it -v /home/b320a/L:/my-dir -p 6321:8888 --gpus all --ipc=host nvcr.
 2. 下载 [Pytorch 镜像（含 CUDA、CuDNN）](https://ngc.nvidia.com/catalog/containers/nvidia:pytorch)
 
 3. 运行镜像：[参考链接](https://docs.nvidia.com/deeplearning/frameworks/user-guide/index.html#runcont)，Use `docker run --gpus` to run GPU-enabled containers.
-
+   
    - Example using all GPUs:
-
+     
      ```bash
      $ docker run --gpus all ...
      ```
-
+   
    - Example using two GPUs:
-
+     
      ```bash
      $ docker run --gpus 2 ...
      ```
-
+   
    - Examples using specific GPUs:
-
+     
      ```bash
      $ docker run --gpus "device=1,2" ...
      $ docker run --gpus "device=UUID-ABCDEF,1" ...
      ```
-
+   
    - 我自己使用的例子
-
+     
      ```bash
      $ docker run -it -p 6321:8080 --gpus all --name liweitao-pytorch -v /home/b320a/liweitao/pytorch:/my-dir --ipc=host liweitao-pytorch
      ```
-
 
 ## 生命周期 Lifecycle
 
